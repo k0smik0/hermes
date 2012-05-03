@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/external"/>
+	<classpathentry excluding="net/iubris/hermes/service/binder/HermesServiceBinderFactory.java|net/iubris/hermes/connector/asynctask/HermesConnectorAsyncTask.java|net/iubris/hermes/service/binder/IHermesServiceBinder.java" kind="src" path="src/core/base"/>
+	<classpathentry kind="src" path="src/core/misc"/>
+	<classpathentry excluding="net/iubris/hermes/HermesInstancer.java" kind="src" path="src/vanilla/base"/>
+	<classpathentry excluding="net/iubris/hermes/activity/splash/delegate/AbstractHermesSplashActivityDelegate.java" kind="src" path="src/vanilla/ui"/>
+	<classpathentry kind="src" path="src/vanilla/utils"/>
+	<classpathentry kind="src" path="src/splash/core"/>
+	<classpathentry kind="src" path="src/splash/base"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/android-compatibilty-v4"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>
