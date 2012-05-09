@@ -5,7 +5,7 @@
 	<classpathentry kind="src" path="src/core/ui"/>
 	<classpathentry excluding="net/iubris/hermes/HermesInstancer.java" kind="src" path="src/vanilla/base"/>
 	<classpathentry excluding="net/iubris/hermes/activity/splash/delegate/AbstractHermesSplashActivityDelegate.java" kind="src" path="src/vanilla/ui"/>
-	<classpathentry excluding="net/iubris/hermes/activity/listactivity/HermesListAsyncTask.java" kind="src" path="src/vanilla/misc"/>
+	<classpathentry excluding="net/iubris/hermes/activity/listactivity/HermesListAsyncTask.java" kind="src" path="src/vanilla/utils"/>
 	<classpathentry kind="src" path="src/splash/core"/>
 	<classpathentry kind="src" path="src/splash/base"/>
 	<classpathentry kind="src" path="gen"/>
