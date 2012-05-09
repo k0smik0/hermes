@@ -34,7 +34,7 @@ import android.app.Service;
 
 public abstract class HermesRoboListFragment<C, HS extends Service & IHermesService<C>> extends RoboListFragment  implements HermesClient<C> {
 
-@Inject private Connector<HS, C> connector;
+	@Inject private Connector<HS, C> connector;
 	
 	@Override
 	public C getController()  {

@@ -24,52 +24,33 @@ import java.util.concurrent.Executor;
 
 import android.app.Activity;
 import android.os.Handler;
+import net.iubris.hermes.asynctask.HermesCallable;
 import net.iubris.hermes.client.HermesClient;
 import net.iubris.hermes.connector.exception.ControllerUnavailableException;
-import roboguice.RoboGuice;
+import roboguice.util.RoboAsyncTask;
 
-public abstract class HermesRoboAsyncTask<ResultT, 
-//HA extends HermesClient/*<C, HS>,
-//C, 
-//HS extends IHermesService<C>*/>
-HC extends Activity & HermesClient<C>, C>
-//extends HermesAsyncTask<Result,HC,C> {
-extends HermesAsyncTask<ResultT,HC,C> implements HermesCallable<ResultT> {
+public abstract class HermesRoboAsyncTask<ResultT, HC extends Activity & HermesClient<C>, C>
+extends RoboAsyncTask<ResultT> implements HermesCallable<ResultT> {
 
 	protected HermesRoboAsyncTask(HC context) {		
 		super(context);
-        RoboGuice.getInjector(context).injectMembers(this);
 	}
 	
     protected HermesRoboAsyncTask(HC context, Handler handler) {
         super(context,handler);
-        RoboGuice.getInjector(context).injectMembers(this);
     }
 
     protected HermesRoboAsyncTask(HC context, Handler handler, Executor executor) {
         super(context, handler, executor);
-        RoboGuice.getInjector(context).injectMembers(this);
     }
 
     protected HermesRoboAsyncTask(HC context, Executor executor) {
-        super(context,executor);
-        RoboGuice.getInjector(context).injectMembers(this);      
+        super(context,executor);     
     }
-	
-	/*@Override
-	public abstract Result call() throws ControllerUnvailableException;*/
-	
+			
 	protected  void onException(ControllerUnavailableException e) {		
 		//UIUtils.showShortToast(R.string.exception_controller_unavailable,e,context);
 	}
 	
-	/**
-	 * invoke "cancel(false)" as default
-	 */
-	/*
-	protected void onActivityDestroy(@Observes OnDestroyEvent ignored ) {
-		//future();
-		Ln.d("Killing background thread %s", this);
-		cancel(false);
-	}*/
+	
 }
