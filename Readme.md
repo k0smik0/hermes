@@ -5,11 +5,11 @@
 the idea is using (local) Service as persistent container for a custom controller, and then provide a component which make activities possible to communicate with service, just with a method call.
 
 Why *Hermes* ?   
-Because the name: Hermes is communication god, in greak mythology.
+Because the name: Hermes is communication god, in greak mythology.  
 So Hermes components make easy communication between activities and service.
 
-Stop to bind, create connection, cast, and so on.
-You retrieve controller istance, et voila.
+Stop to bind, create connection, cast, and so on.  
+You retrieve controller instance, et voilà.
 
 Of course, there are still binder, connection, cast local service behind the scene,
 but you don't have to care about all these. 
@@ -29,7 +29,7 @@ In "MainActivity" (the start ones, or launcher/dashboard) you have to use Hermes
 Of course, honoring this mvc interpretation, you can consider Activity (or Fragment) as view container,  
 where you can inject subviews (as button, textarea, listview and so on) and populate their values calling your controller
 
-about versions:
+About versions:
 
 * the vanilla version needs just android libs (but you have to extends Application or inherit from HermesApplication)
 * the roboguice version needs also roboguice, an amazing IoC container, based on google guice
@@ -83,7 +83,7 @@ public class MyMainRoboActivity extends RoboActivity { //roboguiced way
     ....your code...    
 }
 ```
-OR
+or
 ```java
 //roboguiced way, using inheritance
 // HermesMainRoboActivity is just a class with listener yet injected, and onBackPressed as showed above
@@ -127,7 +127,7 @@ public class MyMainActivity extends Activity {
 	...your code...
 }
 ```
-OR
+or
 ```java
 // vanilla way, using inheritance
 public class MyMainActivity extends HermesActivity<MyController,MyService,MyApplication> {
@@ -186,7 +186,7 @@ public MyActivity extends RoboActivity { // it can be Fragment, or Button, or an
 	}
 }
 ```
-OR
+or
 ```java
 //roboguiced way, using inheritance
 public MyActivity extends HermesRoboActivity { // there are for Fragment too, or Button, ListActivity and so on...
@@ -218,7 +218,7 @@ public class MyActivity extends Activity {
 		...use controller...
 	}
 ```
-OR
+or
 ```java
 //vanilla way, using inheritance
 public class MyActivity extends HermesActivity<MyController,MyService> { // or Fragment, ListActivity, etc.
