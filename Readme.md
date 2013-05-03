@@ -131,7 +131,7 @@ public class MyMainActivity {
 	
 // vanilla way, using composite
 public MyApplication extends Application implements HermesProvider &lt;MyService,MyController&gt; {
-	private HermesApplicationProviderDelegate&lt;MyService,MyController&gt; delegate;
+	private HermesCoreProviderApplicationDelegate&lt;MyService,MyController&gt; delegate;
     @Override
 	public void onCreate() {		
 		super.onCreate();		
