@@ -226,8 +226,8 @@ public class MyActivity extends HermesActivity<MyController,MyService> { // or F
 }
 ```
 
-#####Be careful with "getController()"! Behind the scene, it binds activity (or any contexted client using) to service synchronously, blocking main thread!   
-#####You must use HermesConnectingAsyncTask or HermesConnectingRoboAsyncTask if you want retrieve controller within MainActivity "onResume" (see examples below!)
+####### Be careful with "getController()"! Behind the scene, it binds activity (or any contexted client using) to service synchronously, blocking main thread!   
+####### You must use HermesConnectingAsyncTask or HermesConnectingRoboAsyncTask if you want retrieve controller within MainActivity "onResume" (see examples below!)
 
         
 some examples in source:
