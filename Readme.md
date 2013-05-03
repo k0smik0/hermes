@@ -91,12 +91,8 @@ public class MainActivity extends HermesMainRoboActivity<MyService,MyController>
 
     ....your code...
 }
-```
-  
-VS 
-    
-*vanilla way*
-  
+``` 
+VS *vanilla way*
 ```java
 // vanilla way, using composite
 public class MyMainActivity extends Activity {
@@ -173,7 +169,7 @@ public class MyApplication extends AbstractHermesApplication<MyService,MyControl
 
 ####3) call controller in your activities/etc like above:
 
-	*roboguiced way*
+*roboguiced way*
 ```java
 //roboguiced way, using composite
 public MyActivity extends RoboActivity { // it can be Fragment, or Button, or any class you want
@@ -198,7 +194,7 @@ public MyActivity extends HermesRoboActivity { // there are for Fragment too, or
 	}
 }
 ```
-	VS *vanilla way*
+VS *vanilla way*
 ```java
 // vanilla way, using composite
 public class HermeSampleActivity extends Activity {}
