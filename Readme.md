@@ -17,10 +17,13 @@ but you don't have to care about all these.
 In views (activities, buttons, views, or any class you consider "view" in meaning of mvc pattern) 
 you can, alternatively:
 
-* implements HermesClient and its methods, in order to access your controller
+* implement HermesClient and its methods, in order to access your controller
 
 	or
-* instance a HermesClientWrapper, which provides the custom controller instance from service, transparently (HermesClientWrapper is just an HermesClient implementation)
+	
+* retrieve an instance of Connector, which provides the custom controller instance from service 
+  
+In "MainActivity" (the start ones, or launcher/dashboard) you have to use HermesMainEventHandler (retrieve an instance from HermesApplication or via roboguice - see example below) in order to manage service start/stop/binding/unbinding events 
 
 <br/><br/>
 Of course, honoring this mvc interpretation, you can consider Activity (or Fragment) as view container,<br/>
@@ -28,18 +31,18 @@ where you can inject subviews (as button, textarea, listview and so on) and popu
 
 about versions:
 
-* the vanilla branch needs just android libs (but you have to extends Application)
-* the roboguice branch ones (default branch) needs also roboguice, an amazing IoC container, based on google guice
+* the vanilla version needs just android libs (but you have to extends Application or inherit from HermesApplication)
+* the roboguice version needs also roboguice, an amazing IoC container, based on google guice
 
 
 consider to use last ones - IoC (Inversion of Control) is (actually) ultimate oop paradigma, and roboguice is an amazing system implementing it in android world, providing annotation for DI (dependency injection)
 
-[obviously I develop all my apps using it]
+[and obviously I develop all my apps using this]
 	
 
 <br/><br/>I choised not provide really branch, but just 2 different folder, so: 
 
- * "core" folder contains common parts, 
+ * "common" folder contains common parts, 
  * then "vanilla" VS "roboguiced" folders contain different implementations, respectively honoring "pure android" way VS ioc/di (robo)guice way  
 
 after you cloned repository, you have simply exclude uninteresting folders in your ide/ant/etc, in order to not compile version classes you don't want.
@@ -58,7 +61,7 @@ public class MyService extends HermesRoboService<MyService,MyController> { // ro
 ####2) main activity (the start one) is handler for start service when application start and stop it on OnDestroy.
 ##### main activity should be as "single_task" if there are other activities - so, service will live only during mainactivity lifecycle.
 ##### (really, it can be as always single_task also if it is unique activity in entire application) 
-##### for listener and abstract class template (see examples below): default behaviour is just this.
+##### for listener and abstract class template (see examples below): default behaviour is just this one.
 ##### for "single_task" you can use FLAG_ACTIVITY_NEW_TASK - see also 
 [Dashboard pattern](http://www.androiduipatterns.com/2011/02/ui-design-pattern-dashboard.html) 
 
@@ -98,18 +101,18 @@ VS
 // vanilla way, using composite
 public class MyMainActivity {
 
-	private EventHandler&lt;MyService,MyController&gt; eventHandler;
+	private HermesMainEventHandler&lt;MyService,MyController&gt; eventHandler;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);				
-		eventHandler = ((MyApplication)getApplication()).getEventHandler();		
+		eventHandler = ((MyApplication)getApplication()).getMainEventHandler();		
 		eventHandler.dispatchOnCreate();
 	}	
 	@Override
-	protected void onResume() {
-		super.onResume();
-		eventHandler.dispatchOnResume();	
+	protected void onStart() {
+		super.onStart();
+		eventHandler.dispatchOnStart();	
 	}		
 	@Override
 	public void onBackPressed() {
@@ -127,20 +130,20 @@ public class MyMainActivity {
 	and extending (android) Application, you must have something as:
 	
 // vanilla way, using composite
-public MyApplication extends Application implements IHermesApplication &lt;MyService,MyController&gt; {
-	private HermesApplicationWrapper&lt;MyService,MyController&gt; hermesApplicationWrapper;
+public MyApplication extends Application implements HermesProvider &lt;MyService,MyController&gt; {
+	private HermesApplicationProviderDelegate&lt;MyService,MyController&gt; delegate;
     @Override
 	public void onCreate() {		
 		super.onCreate();		
-		hermesApplicationWrapper = new HermesApplicationWrapper&lt;MyService,MyController&gt;(this,providesHSClass());				
+		delegate = new HermesApplicationProviderDelegate&lt;MyService,MyController&gt;(this,providesHSClass());				
 	}
 	@Override
 	public Connector&lt;MyService,MyController&gt; getConnector() {		
-		return hermesApplicationWrapper.getConnector();
+		return delegate.getConnector();
 	}
 	@Override
 	public EventHandler&lt;MyService,MyController&gt; getEventHandler() {
-		return hermesApplicationWrapper.getEventHandler();
+		return delegate.getEventHandler();
 	}
 	@Override
 	public Class&lt;MyService&gt; providesHSClass() {
@@ -152,7 +155,7 @@ public MyApplication extends Application implements IHermesApplication &lt;MySer
 
 // vanilla way, using inheritance
 public class MyApplication extends HermesApplication&lt;MyService,MyController&gt; {
-	// is abstract, in superclass HermesApplication
+	// this is abstract in HermesApplication superclass
 	@Override
 	public Class&lt;MyService&gt; providesHSClass() {
 		return MyService.class;    
@@ -167,11 +170,11 @@ public class MyApplication extends HermesApplication&lt;MyService,MyController&g
 <pre>
 //roboguiced way, using composite
 public MyActivity extends RoboActivity { // it can be Fragment, or Button, or any class you want
-	@Inject HermesClientWrapper&lt;MyService,MyController&gt; controllerProvider;
+	@Inject Connector&lt;MyService,MyController&gt; connector;
 
 	@Override
 	protected void onResume() { // but it can be onCreate, or another you prefer
-		MyController mc = controllerProvider.getController();
+		MyController mc = connector.getController();
 	    ..use controller...
 	}
 }
@@ -193,17 +196,12 @@ VS *vanilla way*
 public class HermeSampleActivity extends Activity {}
 public class MyActivity extends Activity {
 
-	/** 
-	*  be careful vanilla branch HermesClientWrapper has different implementation than roboguiced branch
-	*  it takes 3 template parameters and, as constructor parameters, Application (extending HermesApplication: 
-	*  see above for example) and Service class type
-	*/   
-	HermesClientWrapper<MyApplication,MyService,MyController> hermesClientWrapper;
+	private Connector<MyService, MyController> connector;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
-		super.onCreate(savedInstanceState);		
-		hermesClientWrapper = new HermesClientWrapper<MyApplication,MyService,MyController>((MyApplication)getApplication(), MyService.class);
+		super.onCreate(savedInstanceState);
+		connector = ((HermesSampleApplication)getApplication()).getConnector();		
 	}	
 	@Override
 	protected void onResume() {		
@@ -224,6 +222,8 @@ public class MyActivity extends HermesActivity { // or Fragment, ListActivity, e
 }
 </pre>
 
+#####Be careful with "getController()"! It is blocking! <br/>
+#####You must use HermesConnectingAsyncTask or HermesConnectingRoboAsyncTask if you want retrieve controller within "onResume" (see examples below!)
 
 <br/><br/><br/><br/>
 some examples in source:
