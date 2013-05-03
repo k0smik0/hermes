@@ -1,0 +1,121 @@
+<project name="hermes-library_vanilla" default="jars">
+	<property name="name" value="${ant.project.name}"/>
+  <property name="user" value="k0smik0"/>
+  <property name="vendor" value="Massimiliano Leone - k0smik0"/>
+  <property name="version" value="0.1"/>
+  <property name="copyright" value="Copyleft 2012 Massimiliano Leone - iubris.net@gmail.com"/>
+  <property name="license.file" value="COPYING.txt"/>
+  <property name="license.url" value="http://www.gnu.org/licenses/lgpl.txt"/>
+  <property name="docurl" value="https://github.com/k0smik0/hermes"/>
+
+
+  <!-- change here with your own -->
+  <property name="android-path" value="/data/fucina/develop/usr/apps/android-sdk/" />
+  <property name="android-sdk-target-version" value="17"/>
+
+  <property name="libs-dir" value="libs"/>
+  <!-- don't include extra libs jars in your project if you don't want use dependency injection-->
+  <property name="extra-libs-dir" value="libs_extra"/>
+	
+	<!-- don't touch below -->
+	
+	<property name="src.dir" value="src" />
+  <property name="build.dir" value="build" />
+	
+	<property name="project.name" value="hermes"/>
+	<property name="project.suffix" value="base"/>
+	<property name="project.branch" value="vanilla"/>
+
+
+  <property name="jar-base-vanilla.file" value="${build.dir}/jars/${project.name}-${project.suffix}-${project.branch}.jar"/>
+	<property name="jar-base-vanilla-inheriting.file" value="${build.dir}/jars/${project.name}-${project.suffix}-inheriting_ui-${project.branch}.jar"/>
+	
+	<path id="classpath-android">
+	  <fileset dir="${android-path}/platforms/android-${android-sdk-target-version}/">
+    	<include name="android*.jar"/>
+	  </fileset>
+	</path>
+
+	<path id="classpath-vanilla-base">
+	  <path refid="classpath-android"/>
+	  <fileset dir="${libs-dir}">
+      <include name="*.jar"/>
+	  </fileset>
+	</path>
+
+	<target name="clean-vanilla-base">
+    <delete dir="${build.dir}/classes/vanilla/base"/>
+		<delete dir="${build.dir}/classes/vanilla/inheriting_ui"/>
+	</target>
+	
+	<target name="clean-vanilla-inheriting_ui">
+		<delete dir="${build.dir}/classes/vanilla/inheriting_ui"/>
+	</target>
+	
+	<target name="clean" depends="clean-vanilla-base,clean-vanilla-inheriting_ui"/>
+
+	<target name="clean-jars">
+    <delete file="${jar-base-vanilla.file}"/>
+		<delete file="${jar-base-vanilla-inheriting.file}.file}"/>
+	</target>
+
+	<target name="compile-vanilla-base">
+    <mkdir dir="${build.dir}/classes/vanilla/base"/>
+    <javac destdir="${build.dir}/classes/vanilla/base" includeantruntime="false">
+      <src path="${src.dir}/vanilla/base" />
+      <include name="**/*.java"/>
+      <classpath refid="classpath-vanilla-base"/>
+		</javac>
+	</target>
+	
+	<target name="compile-vanilla-inheriting_ui" depends="jar-vanilla-base">
+		<mkdir dir="${build.dir}/classes/vanilla/inheriting_ui"/>
+    <javac destdir="${build.dir}/classes/vanilla/inheriting_ui" includeantruntime="false">
+      <src path="${src.dir}/vanilla/inheriting_ui" />
+      <include name="**/*.java"/>
+      <classpath refid="classpath-vanilla-base"/>
+    	<classpath>
+    		<fileset dir="${build.dir}/jars">
+    			<include name="hermes-base-vanilla.jar"/>
+    		</fileset>
+    	</classpath>
+		</javac>
+	</target>
+	
+	<target name="jar-vanilla-base" depends="clean-jars, clean-vanilla-base, compile-vanilla-base">
+	  <mkdir dir="${build.dir}/jars/"/>
+	  <jar destfile="${jar-base-vanilla.file}" basedir="${build.dir}/classes/vanilla/base">
+    	<manifest>
+        <attribute name="Built-By" value="${user}" />    
+        <attribute name="Bundle-Name" value="${name}" />
+        <attribute name="Bundle-Copyright" value="${copyright}" />
+        <attribute name="Bundle-Vendor" value="${vendor}" />
+        <attribute name="Bundle-Version" value="${version}" />
+        <attribute name="Bundle-License" value="${license.url} " />
+        <attribute name="Build-DocURL" value="${docurl}" />           
+      </manifest>
+      <metainf dir="." includes="${license.file}"/>
+    </jar>
+    <antcall target="clean-vanilla-base"/>
+  </target>
+	
+	<target name="jar-vanilla-inheriting_ui" depends="clean-jars, clean-vanilla-base, compile-vanilla-inheriting_ui">
+	  <mkdir dir="${build.dir}/jars/"/>
+	  <jar destfile="${jar-base-vanilla-inheriting.file}" basedir="${build.dir}/classes/vanilla/inheriting_ui">
+    	<manifest>
+        <attribute name="Built-By" value="${user}" />    
+        <attribute name="Bundle-Name" value="${name}" />
+        <attribute name="Bundle-Copyright" value="${copyright}" />
+        <attribute name="Bundle-Vendor" value="${vendor}" />
+        <attribute name="Bundle-Version" value="${version}" />
+        <attribute name="Bundle-License" value="${license.url} " />
+        <attribute name="Build-DocURL" value="${docurl}" />           
+      </manifest>
+      <metainf dir="." includes="${license.file}"/>
+    </jar>
+    <antcall target="clean-vanilla-inheriting_ui"/>
+  </target>
+
+  <target name="jars" depends="jar-vanilla-base, jar-vanilla-inheriting_ui"/>
+	
+</project>
