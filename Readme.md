@@ -1,10 +1,10 @@
 # Hermes
 
 ##mvc for android
-<br/>
+  
 the idea is using (local) Service as persistent container for a custom controller, and then provide a component which make activities possible to communicate with service, just with a method call.
 
-Why *Hermes* ? <br/>
+Why *Hermes* ?   
 Because the name: Hermes is communication god, in greak mythology.
 So Hermes components make easy communication between activities and service.
 
@@ -13,7 +13,7 @@ You retrieve controller istance, et voila.
 
 Of course, there are still binder, connection, cast local service behind the scene,
 but you don't have to care about all these. 
-<br/><br/><br/>
+      
 In views (activities, buttons, views, or any class you consider "view" in meaning of mvc pattern) 
 you can, alternatively:
 
@@ -25,8 +25,8 @@ you can, alternatively:
   
 In "MainActivity" (the start ones, or launcher/dashboard) you have to use HermesMainEventHandler (retrieve an instance from HermesApplication or via roboguice - see example below) in order to manage service start/stop/binding/unbinding events 
 
-<br/><br/>
-Of course, honoring this mvc interpretation, you can consider Activity (or Fragment) as view container,<br/>
+    
+Of course, honoring this mvc interpretation, you can consider Activity (or Fragment) as view container,  
 where you can inject subviews (as button, textarea, listview and so on) and populate their values calling your controller
 
 about versions:
@@ -39,24 +39,24 @@ consider to use last ones - IoC (Inversion of Control) is (actually) ultimate oo
 
 [and obviously I develop all my apps using this]
 	
-
-<br/><br/>I choised not provide really branch, but just 2 different folder, so: 
+    
+I choised not provide really branch, but just 2 different folder, so: 
 
  * "common" folder contains common parts, 
  * then "vanilla" VS "roboguiced" folders contain different implementations, respectively honoring "pure android" way VS ioc/di (robo)guice way  
 
 after you cloned repository, you have simply exclude uninteresting folders in your ide/ant/etc, in order to not compile version classes you don't want.
 
-<br/><br/><br/>
+      
 ###usage:
 
 ####1) your service must extends HermesService (or HermesRoboService, in roboguiced version): template parameters are YourService (itself) and YourController, so:
-<pre>
+```java
 public class MyService extends HermesRoboService<MyService,MyController> { // roboguiced version - or you can use HermesService
    @Inject MyController myController; // in vanilla version you have to instance this in OnCreate
    ...
 }
-</pre>
+```
 
 ####2) main activity (the start one) is handler for start service when application start and stop it on OnDestroy.
 ##### main activity should be as "single_task" if there are other activities - so, service will live only during mainactivity lifecycle.
@@ -65,11 +65,11 @@ public class MyService extends HermesRoboService<MyService,MyController> { // ro
 ##### for "single_task" you can use FLAG_ACTIVITY_NEW_TASK - see also 
 [Dashboard pattern](http://www.androiduipatterns.com/2011/02/ui-design-pattern-dashboard.html) 
 
-<br/><br/>
+    
 So, different ways are possible:
 
 *roboguiced way*
-<pre>
+```java
 //roboguiced way, using composite
 public class MyMainRoboActivity extends RoboActivity { //roboguiced way
 	@Inject private HermesMainRoboActivityListener&lt;MyService,MyController&gt; listener;
@@ -82,7 +82,7 @@ public class MyMainRoboActivity extends RoboActivity { //roboguiced way
 	}    
     ....your code...    
 }
-</pre>
+```
 OR
 <pre>
 //roboguiced way, using inheritance
@@ -92,12 +92,12 @@ public class MainActivity extends HermesMainRoboActivity&lt;MyService,MyControll
     ....your code...
 }
 </pre>
-<br/>
+  
 VS 
-<br/><br/>
+    
 *vanilla way*
-<br/>
-<pre>
+  
+`
 // vanilla way, using composite
 public class MyMainActivity {
 
@@ -161,7 +161,7 @@ public class MyApplication extends HermesApplication&lt;MyService,MyController&g
 		return MyService.class;    
 	}
 }
-</pre>
+`
 
 
 ####3) call controller in your activities/etc like above:
@@ -222,17 +222,17 @@ public class MyActivity extends HermesActivity { // or Fragment, ListActivity, e
 }
 </pre>
 
-#####Be careful with "getController()"! It is blocking! <br/>
+#####Be careful with "getController()"! It is blocking!   
 #####You must use HermesConnectingAsyncTask or HermesConnectingRoboAsyncTask if you want retrieve controller within "onResume" (see examples below!)
 
-<br/><br/><br/><br/>
+        
 some examples in source:
 
 [sample for roboguiced branch](samples/roboguiced)
 
 [sample for vanilla branch](samples/vanilla)
 
-<br/><br/><br/><br/>
+        
 
 
 
