@@ -52,7 +52,7 @@ after you cloned repository, you have simply exclude uninteresting folders in yo
 
 ####1) your service must extends HermesService (or HermesRoboService, in roboguiced version): template parameters are YourService (itself) and YourController, so:
 ```java
-public class MyService extends HermesRoboService<MyService,MyController> { // roboguiced version - or you can use HermesService
+public class MyService extends HermesRoboService<MyService,MyController> { // roboguiced version - for vanilla: you can use HermesService
    @Inject MyController myController; // in vanilla version you have to instance this in OnCreate
    ...
 }
@@ -72,7 +72,7 @@ So, different ways are possible:
 ```java
 //roboguiced way, using composite
 public class MyMainRoboActivity extends RoboActivity { //roboguiced way
-	@Inject private HermesMainRoboActivityListener&lt;MyService,MyController&gt; listener;
+	@Inject private HermesMainRoboActivityListener<MyService,MyController> listener;
     
     // if u want stop service when user press back button in this main activity
     @Override
@@ -84,24 +84,24 @@ public class MyMainRoboActivity extends RoboActivity { //roboguiced way
 }
 ```
 OR
-<pre>
+```java
 //roboguiced way, using inheritance
 // HermesMainRoboActivityListener is just a class with listener yet injected, and onBackPressed as above
-public class MainActivity extends HermesMainRoboActivity&lt;MyService,MyController&gt; { //roboguiced way
+public class MainActivity extends HermesMainRoboActivity<MyService,MyController> { //roboguiced way
 
     ....your code...
 }
-</pre>
+```
   
 VS 
     
 *vanilla way*
   
-`
+```java
 // vanilla way, using composite
 public class MyMainActivity {
 
-	private HermesMainEventHandler&lt;MyService,MyController&gt; eventHandler;
+	private HermesMainEventHandler<MyService,MyController> eventHandler;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
@@ -130,23 +130,23 @@ public class MyMainActivity {
 	and extending (android) Application, you must have something as:
 	
 // vanilla way, using composite
-public MyApplication extends Application implements HermesProvider &lt;MyService,MyController&gt; {
-	private HermesCoreProviderApplicationDelegate&lt;MyService,MyController&gt; delegate;
+public MyApplication extends Application implements HermesProvider <MyService,MyController> {
+	private HermesCoreProviderApplicationDelegate<MyService,MyController> delegate;
     @Override
 	public void onCreate() {	
 		super.onCreate();		
-		delegate = new HermesApplicationProviderDelegate&lt;MyService,MyController&gt;(this,providesHSClass());				
+		delegate = new HermesApplicationProviderDelegate<MyService,MyController>(this,providesHSClass());				
 	}
 	@Override
-	public Connector&lt;MyService,MyController&gt; getConnector() {		
+	public Connector<MyService,MyController> getConnector() {		
 		return delegate.getConnector();
 	}
 	@Override
-	public EventHandler&lt;MyService,MyController&gt; getEventHandler() {
+	public EventHandler<MyService,MyController> getEventHandler() {
 		return delegate.getEventHandler();
 	}
 	@Override
-	public Class&lt;MyService&gt; providesHSClass() {
+	public Class<MyService> providesHSClass() {
 		return MyService.class;    
 	}
 }
@@ -154,23 +154,23 @@ public MyApplication extends Application implements HermesProvider &lt;MyService
 	or simply extends HermesApplication as:
 
 // vanilla way, using inheritance
-public class MyApplication extends HermesApplication&lt;MyService,MyController&gt; {
+public class MyApplication extends HermesApplication<MyService,MyController> {
 	// this is abstract in HermesApplication superclass
 	@Override
-	public Class&lt;MyService&gt; providesHSClass() {
+	public Class<MyService> providesHSClass() {
 		return MyService.class;    
 	}
 }
-`
+```
 
 
 ####3) call controller in your activities/etc like above:
 
 *roboguiced way*
-<pre>
+```java
 //roboguiced way, using composite
 public MyActivity extends RoboActivity { // it can be Fragment, or Button, or any class you want
-	@Inject Connector&lt;MyService,MyController&gt; connector;
+	@Inject Connector<MyService,MyController> connector;
 
 	@Override
 	protected void onResume() { // but it can be onCreate, or another you prefer
@@ -178,9 +178,9 @@ public MyActivity extends RoboActivity { // it can be Fragment, or Button, or an
 	    ..use controller...
 	}
 }
-</pre>
+```
 OR
-<pre>
+```java
 public MyActivity extends HermesRoboActivity { // there are for Fragment too, or Button, ListActivity and so on...
 
 	@Override
@@ -189,9 +189,9 @@ public MyActivity extends HermesRoboActivity { // there are for Fragment too, or
 	    ..use controller...
 	}
 }
-</pre>
+```
 VS *vanilla way*
-<pre>
+```java
 // vanilla way, using composite
 public class HermeSampleActivity extends Activity {}
 public class MyActivity extends Activity {
@@ -220,7 +220,7 @@ public class MyActivity extends HermesActivity { // or Fragment, ListActivity, e
 	    ..use controller...
 	}
 }
-</pre>
+```
 
 #####Be careful with "getController()"! It is blocking!   
 #####You must use HermesConnectingAsyncTask or HermesConnectingRoboAsyncTask if you want retrieve controller within "onResume" (see examples below!)
