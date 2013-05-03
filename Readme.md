@@ -1,6 +1,6 @@
 # Hermes
 
-##mvc for android
+##an MVC for android
   
 the idea is using (local) Service as persistent container for a custom controller, and then provide a component which make activities possible to communicate with service, just with a method call.
 
@@ -86,7 +86,7 @@ public class MyMainRoboActivity extends RoboActivity { //roboguiced way
 OR
 ```java
 //roboguiced way, using inheritance
-// HermesMainRoboActivityListener is just a class with listener yet injected, and onBackPressed as above
+// HermesMainRoboActivity is just a class with listener yet injected, and onBackPressed as showed above
 public class MainActivity extends HermesMainRoboActivity<MyService,MyController> { //roboguiced way
 
     ....your code...
@@ -99,7 +99,7 @@ VS
   
 ```java
 // vanilla way, using composite
-public class MyMainActivity {
+public class MyMainActivity extends Activity {
 
 	private HermesMainEventHandler<MyService,MyController> eventHandler;
 
@@ -126,13 +126,22 @@ public class MyMainActivity {
 	}
 	...your code...
 }
+```
+OR
+```java
+// vanilla way, using inheritance
+public class MyMainActivity extends HermesActivity<MyController,MyService,MyApplication> {
+	...your code...
+}
+```
 
 	and extending (android) Application, you must have something as:
 	
+```java	
 // vanilla way, using composite
-public MyApplication extends Application implements HermesProvider <MyService,MyController> {
+public MyApplication extends Application implements HermesProvider<MyService,MyController> {
 	private HermesCoreProviderApplicationDelegate<MyService,MyController> delegate;
-    @Override
+  @Override
 	public void onCreate() {	
 		super.onCreate();		
 		delegate = new HermesApplicationProviderDelegate<MyService,MyController>(this,providesHSClass());				
@@ -150,11 +159,11 @@ public MyApplication extends Application implements HermesProvider <MyService,My
 		return MyService.class;    
 	}
 }
-
+```
 	or simply extends HermesApplication as:
-
+```java
 // vanilla way, using inheritance
-public class MyApplication extends HermesApplication<MyService,MyController> {
+public class MyApplication extends AbstractHermesApplication<MyService,MyController> {
 	// this is abstract in HermesApplication superclass
 	@Override
 	public Class<MyService> providesHSClass() {
@@ -181,6 +190,7 @@ public MyActivity extends RoboActivity { // it can be Fragment, or Button, or an
 ```
 OR
 ```java
+//roboguiced way, using inheritance
 public MyActivity extends HermesRoboActivity { // there are for Fragment too, or Button, ListActivity and so on...
 
 	@Override
@@ -201,7 +211,7 @@ public class MyActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
-		connector = ((HermesSampleApplication)getApplication()).getConnector();		
+		connector = ((MySampleApplication)getApplication()).getConnector();		
 	}	
 	@Override
 	protected void onResume() {		
@@ -213,7 +223,7 @@ public class MyActivity extends Activity {
 OR
 
 //vanilla way, using inheritance
-public class MyActivity extends HermesActivity { // or Fragment, ListActivity, etc.
+public class MyActivity extends HermesActivity<MyController,MyService> { // or Fragment, ListActivity, etc.
 	@Override
 	protected void onResume() { // but it can be onCreate, or method you prefer
 		MyController mc = getController(); // Hermes*Activity provides getController() method
@@ -222,8 +232,8 @@ public class MyActivity extends HermesActivity { // or Fragment, ListActivity, e
 }
 ```
 
-#####Be careful with "getController()"! It is blocking!   
-#####You must use HermesConnectingAsyncTask or HermesConnectingRoboAsyncTask if you want retrieve controller within "onResume" (see examples below!)
+#####Be careful with "getController()"! Behind the scene, it binds activity (or any contexted client using) to service synchronously, blocking main thread!   
+#####You must use HermesConnectingAsyncTask or HermesConnectingRoboAsyncTask if you want retrieve controller within MainActivity "onResume" (see examples below!)
 
         
 some examples in source:
