@@ -133,7 +133,7 @@ public class MyMainActivity {
 public MyApplication extends Application implements HermesProvider &lt;MyService,MyController&gt; {
 	private HermesCoreProviderApplicationDelegate&lt;MyService,MyController&gt; delegate;
     @Override
-	public void onCreate() {		
+	public void onCreate() {	
 		super.onCreate();		
 		delegate = new HermesApplicationProviderDelegate&lt;MyService,MyController&gt;(this,providesHSClass());				
 	}
