@@ -52,11 +52,7 @@ Log.d("HermesMainRoboActivityListener","dispatchOnStart:");
 		mainEventHandler.dispatchOnStart();
 	}
 	
-//	public void doOnResume(@Observes OnResumeEvent onResumeEvent) {
-//		mainEventHandler.dispatchOnResume();
-//	}
-	
-	public void doOnDestroy(@Observes OnDestroyEvent onDestroyEvent) {
+	public void dispatchOnDestroy(@Observes OnDestroyEvent onDestroyEvent) {
 		doOnDestroy();
 	}
 
