@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src/external"/>
-	<classpathentry excluding="net/iubris/hermes/service/binder/HermesServiceBinderFactory.java|net/iubris/hermes/connector/asynctask/HermesConnectorAsyncTask.java|net/iubris/hermes/service/binder/IHermesServiceBinder.java|net/iubris/hermes/utils/asynctask/HermesAsyncTask.java" kind="src" path="src/core/base"/>
-	<classpathentry kind="src" path="src/core/ui"/>
-	<classpathentry kind="src" path="src/roboguice/base"/>
-	<classpathentry kind="src" path="src/roboguice/ui"/>
-	<classpathentry excluding="net/iubris/hermes/utils/asynctask/start/HermesRoboAsyncTaskStartingActivity.java" kind="src" path="src/roboguice/utils"/>
-	<classpathentry kind="src" path="src/splash/core"/>
-	<classpathentry kind="src" path="src/splash/base"/>
+	<classpathentry excluding="net/iubris/hermes/service/handler/ServiceHandler.java|net/iubris/hermes/client/delegate/HermesClientDelegate.java|net/iubris/hermes/_roboguice/ConnectorProvider.java|net/iubris/hermes/_roboguice/MainEventHandlerProvider.java|net/iubris/hermes/_roboguice/EventHandlerProvider.java|net/iubris/hermes/_roboguice/ServiceHandlerProvider.java|net/iubris/hermes/_roboguice/HermesClientDelegateProvider.java|net/iubris/hermes/client/delegate/RoboHermesClientDelegate.java|net/iubris/hermes/connector/asynctask/HermesConnectorTask.java|net/iubris/hermes/event/RoboHermesEventHandler.java|net/iubris/hermes/connector/RoboConnector.java|net/iubris/hermes/connector/RoboHermesEventHandlerInternalDelegate.java|net/iubris/hermes/event/RoboHermesMainEventHandler.java|net/iubris/hermes/service/handler/RoboServiceHandler.java|net/iubris/hermes/_roboguice/AbstractHermesModule.java|net/iubris/hermes/service/HermesRoboServiceListener.java" kind="src" path="src/roboguice/base"/>
+	<classpathentry excluding="net/iubris/hermes/activity/main/listener/event/EventHandler.java|net/iubris/hermes/activity/main/_listener/event/EventHandler.java|core/|inheritance/|net/iubris/hermes/activity/_event/listener/HermesRoboActivityListener.java|net/iubris/hermes/activity/main/_event/listener/HermesMainRoboActivityListener.java" kind="src" path="src/roboguice/inheriting_ui"/>
+	<classpathentry excluding="net/iubris/hermes/activity/expandablelist/|net/iubris/hermes/activity/list/|net/iubris/hermes/activity/map/|net/iubris/hermes/fragment/|net/iubris/hermes/fragment/list/" kind="src" path="src/roboguice/ui/inheriting_ui_extra"/>
+	<classpathentry excluding="net/iubris/hermes/utils/asynctask/start/HermesRoboAsyncTaskStartingActivity.java|net/iubris/hermes/utils/asynctask/HermesRoboAsyncTask.java|net/iubris/hermes/utils/loader/HermesRoboAsyncTaskLoader.java" kind="src" path="src/roboguice/utils"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry excluding="net/iubris/hermes/client/delegate/|net/iubris/hermes/connector/asynctask/|net/iubris/hermes/service/handler/|net/iubris/hermes/event/RoboHermesEventHandler.java|net/iubris/hermes/_roboguice/ConnectorProvider.java|net/iubris/hermes/_roboguice/EventHandlerProvider.java|net/iubris/hermes/_roboguice/HermesClientDelegateProvider.java|net/iubris/hermes/_roboguice/MainEventHandlerProvider.java|net/iubris/hermes/_roboguice/AbstractHermesModule.java|net/iubris/hermes/_roboguice/ServiceHandlerProvider.java|net/iubris/hermes/event/RoboHermesMainEventHandler.java|net/iubris/hermes/connector/" kind="src" path="src/useless"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/roboguice"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/android-compatibilty-v4"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

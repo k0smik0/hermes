@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="exception_controller_unavailable">something heavy heavy wrong:\nplease re-press button\n</string>
+
+    <!-- string name="exception_controller_unavailable">something heavy heavy wrong:\nplease re-press button\n</string-->
 </resources>

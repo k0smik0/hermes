@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src/external"/>
-	<classpathentry excluding="net/iubris/hermes/service/binder/HermesServiceBinderFactory.java|net/iubris/hermes/connector/asynctask/HermesConnectorAsyncTask.java|net/iubris/hermes/service/binder/IHermesServiceBinder.java" kind="src" path="src/core/base"/>
-	<classpathentry kind="src" path="src/core/ui"/>
-	<classpathentry excluding="net/iubris/hermes/HermesInstancer.java" kind="src" path="src/vanilla/base"/>
-	<classpathentry excluding="net/iubris/hermes/activity/splash/delegate/AbstractHermesSplashActivityDelegate.java" kind="src" path="src/vanilla/ui"/>
-	<classpathentry excluding="net/iubris/hermes/activity/listactivity/HermesListAsyncTask.java" kind="src" path="src/vanilla/utils"/>
-	<classpathentry kind="src" path="src/splash/core"/>
-	<classpathentry kind="src" path="src/splash/base"/>
+	<classpathentry excluding="net/iubris/hermes/HermesInstancer.java|net/iubris/hermes/connector/Connector.java|net/iubris/hermes/connector/Connector_bak.java|net/iubris/hermes/connector/asynctask/HermesConnectorTask.java|net/iubris/hermes/connector/ConnectorProvider.java|net/iubris/hermes/providers/HermesProvider_old.java|net/iubris/hermes/providers/HermesServiceClassProvider.java" kind="src" path="src/vanilla/base"/>
+	<classpathentry excluding="net/iubris/hermes/activity/splash/delegate/AbstractHermesSplashActivityDelegate.java" kind="src" path="src/vanilla/inheriting_ui"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry excluding="net/iubris/hermes/connector/|net/iubris/hermes/connector/asynctask/|net/iubris/hermes/providers/|net/iubris/hermes/asynctask/HermesAsyncTask.java|net/iubris/hermes/asynctask/listactivity/HermesListActivityAsyncTask.java|net/iubris/hermes/activity/listactivity/HermesListAsyncTask.java" kind="src" path="src/useless"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/android-compatibilty-v4"/>

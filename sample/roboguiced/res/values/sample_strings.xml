@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="app_name">Hermes Sample Roboguiced</string>
+	<string name="app_name">HermesRoboguicedSample</string>
 
 	<string name="here_button_text">Here?</string>
 
-	<string name="sample_activity_button_text">Sample Activity</string>    
-	<string name="sample_activity_compositing_button_text">Sample Activity</string>   
-    
+	<string name="sample_activity_inheriting_button_text">Sample Inheriting Activity</string>    
+	<string name="sample_activity_compositing_button_text">Sample Compositing Activity</string>   
+  <string name="sample_activity_local_button_text">Use Controller Here</string>  
+	
 </resources>

@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.iubris.hermes.sample"
+    package="net.iubris.hermes_vanilla_sample"
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="14"/>
+    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="17"/>
+    
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <!-- sample section -->
     <application
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
+        android:label="@string/app_name"
+        android:name=".application.HermesSampleApplication" 
+        >
         <activity
-            android:name=".vanilla.activity.main.HermesSampleMainActivity"
+            android:name=".activity.main.HermesSampleMainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".vanilla.activity.HermeSampleActivity"></activity>
-        <activity android:name=".vanilla.activity.HermesSampleCompositingActivity"></activity>        
+        <activity android:name=".activity.examples.HermesSampleInheritingActivity"></activity>
+        <activity android:name=".activity.examples.HermesSampleCompositingActivity"></activity>        
         
+        <service android:name=".service.HermesSampleService"></service>
     </application>
     <!-- end sample section -->
 
