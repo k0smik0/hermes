@@ -1,0 +1,122 @@
+<project name="hermes-library-common" default="jars">
+	<property name="name" value="${ant.project.name}"/>
+  <property name="user" value="k0smik0"/>
+  <property name="vendor" value="Massimiliano Leone - k0smik0"/>
+  <property name="version" value="0.1"/>
+  <property name="copyright" value="Copyleft 2012 Massimiliano Leone - iubris.net@gmail.com"/>
+  <property name="license.file" value="COPYING.txt"/>
+  <property name="license.url" value="http://www.gnu.org/licenses/lgpl.txt"/>
+  <property name="docurl" value="https://github.com/k0smik0/hermes"/>
+
+
+  <!-- change here with your own -->
+  <property name="android-path" value="/data/fucina/develop/usr/apps/android-sdk/" />
+  <property name="android-sdk-target-version" value="17"/>
+
+  <!--<property name="libs-dir" value="libs"/>-->
+  <!-- don't include extra libs jars in your project if you don't want use dependency injection-->
+  <property name="extra-libs-dir" value="libs_extra"/>
+	
+	<!-- don't touch below -->
+	
+	<property name="src.dir" value="src" />
+  <property name="build.dir" value="build" />
+	
+	<property name="project.name" value="hermes"/>
+	<property name="project.suffix" value="common"/>
+	<!--<property name="project.branch" value="vanilla"/>-->
+
+
+  <property name="jar-common.file" value="${build.dir}/jars/${project.name}-${project.suffix}.jar"/>
+	<property name="jar-common-splash.file" value="${build.dir}/jars/${project.name}-${project.suffix}-splash.jar"/>
+	
+	<path id="classpath-android">
+	  <fileset dir="${android-path}/platforms/android-${android-sdk-target-version}/">
+    	<include name="android*.jar"/>
+	  </fileset>
+	</path>
+
+	<path id="classpath-common">
+	  <path refid="classpath-android"/>
+	  <fileset dir="${extra-libs-dir}">
+      <include name="javax.inject.jar"/>
+	  </fileset>
+	</path>
+	
+	<path id="classpath-ui-splash">
+	  <path refid="classpath-android"/>
+	  <fileset dir="${build.dir}/jars">
+      <include name="*common*jar"/>
+	  </fileset>
+	</path>
+
+	<target name="clean-common-core">
+    <delete dir="${build.dir}/classes/common/core"/>
+	</target>
+	
+	<target name="clean-common-ui-splash">
+		<delete dir="${build.dir}/classes/common/ui/splash"/>
+	</target>
+	
+	<target name="clean" depends="clean-common-core,clean-common-ui-splash"/>
+
+	<target name="clean-jars">
+    <delete file="${jar-common.file}"/>
+		<delete file="${jar-common-splash.file}"/>
+	</target>
+
+	<target name="compile-common-core">
+    <mkdir dir="${build.dir}/classes/common/core"/>
+    <javac destdir="${build.dir}/classes/common/core" includeantruntime="false">
+      <src path="${src.dir}/common/core" />
+      <include name="**/*.java"/>
+      <classpath refid="classpath-common"/>
+		</javac>
+	</target>
+	
+	<target name="compile-common-ui-splash" depends="jar-common-core">
+		<mkdir dir="${build.dir}/classes/common/ui/splash"/>
+    <javac destdir="${build.dir}/classes/common/ui/splash" includeantruntime="false">
+      <src path="${src.dir}/common/ui/splash" />
+    	<include name="**/*.java"/>
+  		<classpath refid="classpath-ui-splash"/>
+		</javac>
+	</target>
+	
+	<target name="jar-common-core" depends="clean-jars, clean-common-core, compile-common-core">
+	  <mkdir dir="${build.dir}/jars/"/>
+	  <jar destfile="${jar-common.file}" basedir="${build.dir}/classes/common/core">
+    	<manifest>
+        <attribute name="Built-By" value="${user}" />    
+        <attribute name="Bundle-Name" value="${name}" />
+        <attribute name="Bundle-Copyright" value="${copyright}" />
+        <attribute name="Bundle-Vendor" value="${vendor}" />
+        <attribute name="Bundle-Version" value="${version}" />
+        <attribute name="Bundle-License" value="${license.url} " />
+        <attribute name="Build-DocURL" value="${docurl}" />           
+      </manifest>
+      <metainf dir="." includes="${license.file}"/>
+    </jar>
+    <antcall target="clean-common-core"/>
+  </target>
+	
+	<target name="jar-common-ui-splash" depends="clean-jars, clean-common-ui-splash, compile-common-ui-splash">
+	  <mkdir dir="${build.dir}/jars/"/>
+	  <jar destfile="${jar-common-splash.file}" basedir="${build.dir}/classes/common/ui/splash">
+    	<manifest>
+        <attribute name="Built-By" value="${user}" />    
+        <attribute name="Bundle-Name" value="${name}" />
+        <attribute name="Bundle-Copyright" value="${copyright}" />
+        <attribute name="Bundle-Vendor" value="${vendor}" />
+        <attribute name="Bundle-Version" value="${version}" />
+        <attribute name="Bundle-License" value="${license.url} " />
+        <attribute name="Build-DocURL" value="${docurl}" />           
+      </manifest>
+      <metainf dir="." includes="${license.file}"/>
+    </jar>
+    <antcall target="clean-common-ui-splash"/>
+  </target>
+
+  <target name="jars" depends="jar-common-core, jar-common-ui-splash"/>
+	
+</project>
