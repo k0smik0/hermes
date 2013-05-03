@@ -134,9 +134,7 @@ public class MyMainActivity extends HermesActivity<MyController,MyService,MyAppl
 	...your code...
 }
 ```
-
-	and extending (android) Application, you must have something as:
-	
+and extending (android) Application, you must have something as:
 ```java	
 // vanilla way, using composite
 public MyApplication extends Application implements HermesProvider<MyService,MyController> {
@@ -160,7 +158,7 @@ public MyApplication extends Application implements HermesProvider<MyService,MyC
 	}
 }
 ```
-	or simply extends HermesApplication as:
+or simply extends HermesApplication as:
 ```java
 // vanilla way, using inheritance
 public class MyApplication extends AbstractHermesApplication<MyService,MyController> {
@@ -175,7 +173,7 @@ public class MyApplication extends AbstractHermesApplication<MyService,MyControl
 
 ####3) call controller in your activities/etc like above:
 
-*roboguiced way*
+	*roboguiced way*
 ```java
 //roboguiced way, using composite
 public MyActivity extends RoboActivity { // it can be Fragment, or Button, or any class you want
@@ -200,7 +198,7 @@ public MyActivity extends HermesRoboActivity { // there are for Fragment too, or
 	}
 }
 ```
-VS *vanilla way*
+	VS *vanilla way*
 ```java
 // vanilla way, using composite
 public class HermeSampleActivity extends Activity {}
@@ -219,9 +217,9 @@ public class MyActivity extends Activity {
 		MyController hsc = hermesClientWrapper.getController();
 		...use controller...
 	}
-
+```
 OR
-
+```java
 //vanilla way, using inheritance
 public class MyActivity extends HermesActivity<MyController,MyService> { // or Fragment, ListActivity, etc.
 	@Override
@@ -243,9 +241,6 @@ some examples in source:
 [sample for vanilla branch](samples/vanilla)
 
         
-
-
-
 
 #### dependencies for roboguice branch:
 
