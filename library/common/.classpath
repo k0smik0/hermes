@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src/common/core"/>
+	<classpathentry excluding="net/iubris/hermes/service/StartOnStart.java" kind="src" path="src/common/core"/>
 	<classpathentry kind="src" path="src/common/ui/splash"/>
 	<classpathentry excluding="net/iubris/hermes/view/listener/button/HermesButtonListener.java" kind="src" path="src/main/ui/utils"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry excluding="net/iubris/hermes/|net/iubris/hermes/asynctask/|net/iubris/hermes/client/delegate/|net/iubris/hermes/connector/|net/iubris/hermes/connector/asynctask/" kind="src" path="src/useless"/>
+	<classpathentry excluding="net/iubris/hermes/asynctask/|net/iubris/hermes/client/delegate/|net/iubris/hermes/connector/|net/iubris/hermes/connector/asynctask/|net/iubris/hermes/service/|net/iubris/hermes/" kind="src" path="src/useless"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="lib" path="/data/fucina/develop/home/k0smik0/workspace/libs/needed/roboguice/javax.inject.jar"/>

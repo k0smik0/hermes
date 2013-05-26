@@ -43,12 +43,12 @@ public class HermesMainRoboActivityListener<HS extends Service & HermesService<C
 	}
 
 	public void dispatchOnCreate(@Observes OnCreateEvent onCreateEvent) {
-Log.d("HermesMainRoboActivityListener","dispatchOnCreate");
+Log.d("HermesMainRoboActivityListener:46","dispatchOnCreate");
 		mainEventHandler.dispatchOnCreate();
 	}
 	
 	public void dispatchOnStart(@Observes OnStartEvent onStartEvent) {
-Log.d("HermesMainRoboActivityListener","dispatchOnStart:");
+Log.d("HermesMainRoboActivityListener:51","dispatchOnStart:");
 		mainEventHandler.dispatchOnStart();
 	}
 	

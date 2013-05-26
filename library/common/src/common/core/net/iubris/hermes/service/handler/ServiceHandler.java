@@ -46,13 +46,13 @@ public class ServiceHandler<HS extends Service & HermesService<C>, C> {
 
 	public void startService() {		
 		if (!isServiceRunning()) {
-Log.d("ServiceHandler","start service");
+Log.d("ServiceHandler:49","start service");
 			context.startService(serviceIntent);
 		}
 	}
 	
 	public void stopService() {
-Log.d("ServiceHandler","stop service");
+Log.d("ServiceHandler:55","stop service");
 		context.stopService(serviceIntent);
 	}
 	

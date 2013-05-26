@@ -44,7 +44,7 @@ implements HermesClient<C>/*, IHermesRoboActivity<HS,C> */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 //		connector = connectorProvider.get();
-Log.d(this.getClass().getSimpleName(), "connector: "+connector.getClass().getSimpleName()+" "+connector.hashCode());
+Log.d(this.getClass().getSimpleName()+"[HermesRoboActivity:47]", "connector: "+connector.getClass().getSimpleName()+" "+connector.hashCode());
 //		eventHandler = eventHandlerProvider.get();
 //Log.d(this.getClass().getSimpleName(),eventHandler.getClass().getSimpleName());
 //		RoboGuice.getInjector(this).injectMembers(connector);

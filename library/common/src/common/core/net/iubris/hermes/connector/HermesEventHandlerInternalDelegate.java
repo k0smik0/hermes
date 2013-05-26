@@ -17,13 +17,13 @@ public class HermesEventHandlerInternalDelegate<HS extends Service & HermesServi
 
 	public void dispatchOnStart(){
 		if (!connector.isServiceBound() ) {
-Log.d("EventHandler","dispatchOnStart: "+connector.getContext()+" binding");
+Log.d("HermesEventHandlerInternalDelegate:20","dispatchOnStart: "+connector.getContext()+" binding");
 			connector.doBindService();
 		}
 	}
 	
 	public void dispatchOnBackPressed() {
-Log.d(this.getClass().getSimpleName(),"dispatchOnBackPressed: "+connector.getContext()+" unbinding");
+Log.d("HermesEventHandlerInternalDelegate:26","dispatchOnBackPressed: "+connector.getContext()+" unbinding");
 		connector.doUnbindService();
 	}
 	

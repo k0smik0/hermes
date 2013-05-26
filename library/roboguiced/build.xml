@@ -1,4 +1,4 @@
-<project name="hermes-library_vanilla" default="jars">
+<project name="hermes-library_roboguice" default="jars">
 	<property name="name" value="${ant.project.name}"/>
   <property name="user" value="k0smik0"/>
   <property name="vendor" value="Massimiliano Leone - k0smik0"/>

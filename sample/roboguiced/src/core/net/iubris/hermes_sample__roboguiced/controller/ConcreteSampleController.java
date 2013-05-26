@@ -1,6 +1,7 @@
 package net.iubris.hermes_sample__roboguiced.controller;
 
-import com.google.inject.Inject;
+
+import javax.inject.Inject;
 
 import android.content.Context;
 import android.location.LocationManager;

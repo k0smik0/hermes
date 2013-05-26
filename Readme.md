@@ -100,21 +100,21 @@ public class MyMainActivity extends Activity {
 	private HermesMainEventHandler<MyService,MyController> eventHandler;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {		
-		super.onCreate(savedInstanceState);				
-		eventHandler = ((MyApplication)getApplication()).getMainEventHandler();		
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		eventHandler = ((MyApplication)getApplication()).getMainEventHandler();
 		eventHandler.dispatchOnCreate();
 	}	
 	@Override
 	protected void onStart() {
 		super.onStart();
-		eventHandler.dispatchOnStart();	
-	}		
+		eventHandler.dispatchOnStart();
+	}
 	@Override
 	public void onBackPressed() {
 		eventHandler.dispatchOnDestroy();
 		super.onBackPressed();
-	}		
+	}
 	@Override
 	protected void onDestroy() {
 		eventHandler.dispatchOnDestroy();
@@ -138,10 +138,10 @@ public MyApplication extends Application implements HermesProvider<MyService,MyC
   @Override
 	public void onCreate() {	
 		super.onCreate();		
-		delegate = new HermesApplicationProviderDelegate<MyService,MyController>(this,providesHSClass());				
+		delegate = new HermesApplicationProviderDelegate<MyService,MyController>(this,providesHSClass());
 	}
 	@Override
-	public Connector<MyService,MyController> getConnector() {		
+	public Connector<MyService,MyController> getConnector() {
 		return delegate.getConnector();
 	}
 	@Override
@@ -203,12 +203,12 @@ public class MyActivity extends Activity {
 	private Connector<MyService, MyController> connector;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {		
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		connector = ((MySampleApplication)getApplication()).getConnector();		
+		connector = ((MySampleApplication)getApplication()).getConnector();
 	}	
 	@Override
-	protected void onResume() {		
+	protected void onResume() {
 		super.onResume();
 		MyController hsc = hermesClientWrapper.getController();
 		...use controller...

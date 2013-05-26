@@ -19,18 +19,18 @@
  ******************************************************************************/
 package net.iubris.hermes.utils.loader;
 
-import com.google.inject.Inject;
-
-import net.iubris.hermes.connector.Connector;
+import net.iubris.hermes.connector.RoboConnector;
 import net.iubris.hermes.connector.exception.ControllerUnavailableException;
 import net.iubris.hermes.service.IHermesService;
+import roboguice.content.RoboAsyncTaskLoader;
 import android.app.Service;
 import android.content.Context;
-import roboguice.content.RoboAsyncTaskLoader;
+
+import com.google.inject.Inject;
 
 public abstract class HermesRoboAsyncTaskLoader<Result, HS extends Service & IHermesService<C>, C> extends RoboAsyncTaskLoader<Result> {
 
-	@Inject private Connector<HS, C> connector;
+	@Inject private RoboConnector<HS, C> connector;
 	
 	public HermesRoboAsyncTaskLoader(Context context) {
 		super(context);

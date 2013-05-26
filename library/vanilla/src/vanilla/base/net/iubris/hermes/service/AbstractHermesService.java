@@ -19,6 +19,7 @@
  ******************************************************************************/
 package net.iubris.hermes.service;
 
+import java.util.ArrayList;
 import net.iubris.hermes.service.binder.HermesServiceBinder;
 import android.app.Service;
 import android.content.Intent;
@@ -28,15 +29,16 @@ abstract public class AbstractHermesService<HS extends Service & HermesService<C
 extends Service implements HermesService<C> {
 
 	protected IBinder binder;
+	private ArrayList<Runnable> threadsToStart;
 	
 	@Override
-	public IBinder onBind(Intent intent) {
+	public final IBinder onBind(Intent intent) {
 		doOnBind();
 		return binder;
 	}
 	
 	@Override
-	public boolean onUnbind(Intent intent) {
+	public final boolean onUnbind(Intent intent) {
 		doOnUnBind();
 		return super.onUnbind(intent);
 	}
@@ -45,10 +47,17 @@ extends Service implements HermesService<C> {
 	public void onCreate() {
 		super.onCreate();
 		binder = new HermesServiceBinder<AbstractHermesService<HS,C>,C>(this);
+		threadsToStart = new ArrayList<Runnable>(0);
 	}
 	
 	@Override
-	public void onDestroy() {
+	public final int onStartCommand(Intent intent, int flags, int startId) {
+		TaskOnStart.executeOnStart(threadsToStart);
+		return START_STICKY;
+	}
+	
+	@Override
+	public final void onDestroy() {
 		binder = null;
 	}
 	
@@ -56,4 +65,15 @@ extends Service implements HermesService<C> {
 	public void doOnBind() {}	
 	@Override
 	public void doOnUnBind() {}
+	
+	/**
+	 * use this method within "onCreate" in order to execute some blocking code<br/>
+	 * every invocation add a new Runnable to internal List<Runnable>: <br/>
+	 * then, within "onStartCommand", an Executor will executes all threads   
+	 * @param runnable
+	 */
+	@Override
+	public final void addToOnStartCommand(Runnable runnable) {
+		threadsToStart.add(runnable);
+	}
 }

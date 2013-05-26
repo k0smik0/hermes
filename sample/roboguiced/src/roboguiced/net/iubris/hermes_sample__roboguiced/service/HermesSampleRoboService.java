@@ -19,9 +19,13 @@
  ******************************************************************************/
 package net.iubris.hermes_sample__roboguiced.service;
 
+import java.util.concurrent.Callable;
+
 import net.iubris.hermes.service.AbstractHermesRoboService;
 import net.iubris.hermes_sample__roboguiced.controller.SampleController;
 import roboguice.util.Ln;
+import android.util.Log;
+
 import com.google.inject.Inject;
  
 
@@ -34,7 +38,57 @@ public class HermesSampleRoboService extends AbstractHermesRoboService<HermesSam
 	public void onCreate() {
 		super.onCreate();
 Ln.d("onCreate");
+/*
+		addToOnStartCommand( new Runnable() {
+			@Override
+			public void run() {
+				Log.d(this.getClass().getSimpleName()+" at "+"HermesSampleRoboService@"+HermesSampleRoboService.this.hashCode()+":42", Thread.currentThread().getName());
+				Log.d(this.getClass().getSimpleName()+" at "+"HermesSampleRoboService@"+HermesSampleRoboService.this.hashCode()+":43", "first executed");
+			}
+		});
+		addToOnStartCommand( new Runnable() {
+			@Override
+			public void run() {
+				Log.d(this.getClass().getSimpleName()+" at "+"HermesSampleRoboService@"+HermesSampleRoboService.this.hashCode()+":49",Thread.currentThread().getName());
+				Log.d(this.getClass().getSimpleName()+" at "+"HermesSampleRoboService@"+HermesSampleRoboService.this.hashCode()+":50", "second executed");
+			}
+		});
+		addToOnStartCommand( new Runnable() {
+			@Override
+			public void run() {
+				Log.d(this.getClass().getSimpleName()+" at "+"HermesSampleRoboService@"+HermesSampleRoboService.this.hashCode()+":56",Thread.currentThread().getName());
+				Log.d(this.getClass().getSimpleName()+" at "+"HermesSampleRoboService@"+HermesSampleRoboService.this.hashCode()+":57", "third executed");
+			}
+		});
+		*/
+addToOnStartCommand( new Callable<Void>() {
+	@Override
+	public Void call() {
+		Log.d(this.getClass().getSimpleName()+" at "+"HermesSampleRoboService@"+HermesSampleRoboService.this.hashCode()+":42", "current thread is: "+Thread.currentThread().getName());
+		Log.d(this.getClass().getSimpleName()+" at "+"HermesSampleRoboService@"+HermesSampleRoboService.this.hashCode()+":43", "first executed");
+		return null;
 	}
+});
+addToOnStartCommand( new Callable<Void>() {
+	@Override
+	public Void call() {
+		Log.d(this.getClass().getSimpleName()+" at "+"HermesSampleRoboService@"+HermesSampleRoboService.this.hashCode()+":49","current thread is: "+Thread.currentThread().getName());
+		Log.d(this.getClass().getSimpleName()+" at "+"HermesSampleRoboService@"+HermesSampleRoboService.this.hashCode()+":50", "second executed");
+		return null;
+	}
+});
+addToOnStartCommand( new Callable<Void>() {
+	@Override
+	public Void call() {
+		Log.d(this.getClass().getSimpleName()+" at "+"HermesSampleRoboService@"+HermesSampleRoboService.this.hashCode()+":56","current thread is: "+Thread.currentThread().getName());
+		Log.d(this.getClass().getSimpleName()+" at "+"HermesSampleRoboService@"+HermesSampleRoboService.this.hashCode()+":57", "third executed");
+		return null;
+	}
+});
+Ln.d("post onCreate");
+	}
+	
+	
 		
 	/*
 	private SampleController controller = new SampleController() {

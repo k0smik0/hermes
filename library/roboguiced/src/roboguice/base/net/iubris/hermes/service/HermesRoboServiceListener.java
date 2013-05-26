@@ -19,22 +19,21 @@
  ******************************************************************************/
 package net.iubris.hermes.service;
 
-import com.google.inject.Inject;
-
-import android.app.Service;
-import android.os.IBinder;
 import net.iubris.hermes.service.binder.HermesServiceBinder;
 import roboguice.event.Observes;
-import roboguice.inject.ContextSingleton;
-import roboguice.service.event.OnCreateEvent;
 import roboguice.service.event.OnDestroyEvent;
+import roboguice.service.event.OnStartEvent;
 import roboguice.util.Ln;
+import android.app.Service;
+import android.os.IBinder;
 
-@ContextSingleton
-public class HermesRoboServiceListener<HS extends Service & IHermesService<C>,C> {		
+import com.google.inject.Inject;
+
+//@ContextSingleton
+public class HermesRoboServiceListener<HS extends Service & HermesService<C>,C> {		
 	
 	private IBinder binder;
-	private HS hermesRoboService;
+	private final HS hermesRoboService;
 		
 	@Inject
 	public HermesRoboServiceListener(HS hermesRoboService) {
@@ -47,11 +46,26 @@ Ln.d("initted");
 		this.hermesRoboService = hermesRoboService;
 	}*/
 	
-	public void doOnCreate(@Observes OnCreateEvent onCreateEvent) {		
-		Ln.d("HermesServiceListener: onCreate");
-		binder = new HermesServiceBinder<HS, C>(hermesRoboService);
+	/*public void doOnCreate(@Observes OnCreateEvent onCreateEvent) {		
+Ln.d("HermesServiceListener: onCreate");
+Ln.d("HermesServiceListener: hermesRoboService "+ hermesRoboService.hashCode());
+Ln.d(this.getClass().getSimpleName()+": binding");
+//		binder = new HermesServiceBinder<HS, C>(hermesRoboService);
+Ln.d(this.getClass().getSimpleName()+": bounded");		
+		//hermesRoboService.setBinder(new HermesServiceBinder<HS, C>(hermesRoboService));
+	}*/
+	
+	public void doOnStart(@Observes OnStartEvent onStartEvent) {		
+Ln.d("HermesServiceListener: onStart");
+Ln.d("HermesServiceListener: hermesRoboService "+ hermesRoboService.hashCode());
+Ln.d(this.getClass().getSimpleName()+": binding");
+				binder = new HermesServiceBinder<HS, C>(hermesRoboService);
+Ln.d(this.getClass().getSimpleName()+": bounded");		
 		//hermesRoboService.setBinder(new HermesServiceBinder<HS, C>(hermesRoboService));
 	}
+	
+	
+	
 	
 	/*
 	public void doOnStart(@Observes OnStartEvent onStartEvent) {

@@ -44,7 +44,7 @@ extends HermesRoboActivity<C, HS> implements HermesMain
 	
 	@Override
 	public void doOnBackPressed() {
-Log.d(this.getClass().getSimpleName(),"back pressed - dispatching");
+Log.d(this.getClass().getSimpleName()+"[HermesMainRoboActivity:47]","back pressed - dispatching");
 		listener.dispatchOnBackPressed();
 	}
 	

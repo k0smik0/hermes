@@ -39,15 +39,15 @@ public class HermesMainEventHandler<HS extends Service & HermesService<C>, C> {
 	}
 	
 	public void dispatchOnCreate() {
-Log.d("MainEventHandler","onCreate: starting service");
+Log.d("HermesMainEventHandler:42","onCreate: starting service");
 		serviceHandler.startService();
-Log.d("MainEventHandler","onCreate: started service");
+Log.d("HermesMainEventHandler:44","onCreate: started service");
 	}
 	
 	public void dispatchOnStart() {
-Log.d("MainEventHandler","onStart: binding service");
+Log.d("HermesMainEventHandler:48","onStart: binding service");
 		eventHandlerInternalDelegate.dispatchOnStart();
-Log.d("MainEventHandler","onStart: post binding service");		
+Log.d("HermesMainEventHandler:50","onStart: post binding service");		
 	}
 	
 	
