@@ -76,11 +76,11 @@ extends Service implements HermesService<C> {
 	 * @param runnable
 	 */
 	@Override
-	public final void addToOnStartCommand(Runnable runnable) {
+	public final void addToExecuteOnStartCommand(Runnable runnable) {
 		tasksToStart.add(runnable);
 	}
 	@Override
-	public final void addToOnDestroy(Runnable runnable) {
+	public final void addToExecuteOnDestroy(Runnable runnable) {
 		tasksToStop.add(runnable);
 	}
 }

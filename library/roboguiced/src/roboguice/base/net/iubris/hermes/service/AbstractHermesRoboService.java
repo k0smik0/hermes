@@ -43,11 +43,8 @@ extends RoboService implements HermesService<C> {
 	*/
 	// end new way
 	
-//	@Inject private HermesRoboServiceListener<HS, C> hermesRoboServiceListener;
-	
-	private List<Runnable> threadsToStart;
+	private List<Runnable> tasksToStart;
 	private List<Runnable> tasksToStop;
-//	private List<Callable<Void>> threadsToStart;
 	
 	//start old way
 	protected IBinder binder;
@@ -65,8 +62,8 @@ Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:62]","start on
 		super.onCreate();
 Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:64]","post super.onCreate");
 
-		threadsToStart = new ArrayList<Runnable>(0);
-//		threadsToStart = new ArrayList<Callable<Void>>(0);
+		tasksToStart = new ArrayList<Runnable>(0);
+		tasksToStop = new ArrayList<Runnable>(0);
 		
 Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:69]","binding");
 		binder = new HermesServiceBinder<AbstractHermesRoboService<HS, C>,C>(this);
@@ -76,7 +73,7 @@ Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:71]","post bin
 	@Override
 	public final int onStartCommand(Intent intent, int flags, int startId) {
 Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:75]","start onStart");		
-		SmoothTasks.execute(threadsToStart);
+		SmoothTasks.execute(tasksToStart);
 Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:77]","finish onStart");
 		return START_STICKY;
 	}
@@ -107,14 +104,11 @@ Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:77]","finish o
 	 * @param runnable
 	 */
 	@Override
-	public final void addToOnStartCommand(Runnable runnable) {
-		threadsToStart.add(runnable);
+	public final void addToExecuteOnStartCommand(Runnable runnable) {
+		tasksToStart.add(runnable);
 	}
 	@Override
-	public final void addToOnDestroy(Runnable runnable) {
+	public final void addToExecuteOnDestroy(Runnable runnable) {
 		tasksToStop.add(runnable);
 	}
-	/*public final void addToOnStartCommand(Callable<Void> callable) {
-//		threadsToStart.add(callable);
-	}*/
 }

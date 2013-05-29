@@ -24,6 +24,6 @@ import net.iubris.hermes.service.exposer.ControllerExposer;
 public interface HermesService<C> extends ControllerExposer<C> {
 	void doOnBind();
 	void doOnUnBind();
-	void addToOnStartCommand(Runnable runnable);
-	void addToOnDestroy(Runnable runnable);
+	void addToExecuteOnStartCommand(Runnable runnable);
+	void addToExecuteOnDestroy(Runnable runnable);
 }

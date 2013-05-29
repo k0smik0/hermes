@@ -37,21 +37,21 @@ public class HermesSampleRoboService extends AbstractHermesRoboService<HermesSam
 		super.onCreate();
 Ln.d("onCreate");
 
-		addToOnStartCommand( new Runnable() {
+		addToExecuteOnStartCommand( new Runnable() {
 			@Override
 			public void run() {
 				Log.d(this.getClass().getSimpleName()+" at "+"HermesSampleRoboService@"+HermesSampleRoboService.this.hashCode()+":42", Thread.currentThread().getName());
 				Log.d(this.getClass().getSimpleName()+" at "+"HermesSampleRoboService@"+HermesSampleRoboService.this.hashCode()+":43", "first executed");
 			}
 		});
-		addToOnStartCommand( new Runnable() {
+		addToExecuteOnStartCommand( new Runnable() {
 			@Override
 			public void run() {
 				Log.d(this.getClass().getSimpleName()+" at "+"HermesSampleRoboService@"+HermesSampleRoboService.this.hashCode()+":49",Thread.currentThread().getName());
 				Log.d(this.getClass().getSimpleName()+" at "+"HermesSampleRoboService@"+HermesSampleRoboService.this.hashCode()+":50", "second executed");
 			}
 		});
-		addToOnStartCommand( new Runnable() {
+		addToExecuteOnStartCommand( new Runnable() {
 			@Override
 			public void run() {
 				Log.d(this.getClass().getSimpleName()+" at "+"HermesSampleRoboService@"+HermesSampleRoboService.this.hashCode()+":56",Thread.currentThread().getName());
