@@ -25,4 +25,5 @@ public interface HermesService<C> extends ControllerExposer<C> {
 	void doOnBind();
 	void doOnUnBind();
 	void addToOnStartCommand(Runnable runnable);
+	void addToOnDestroy(Runnable runnable);
 }

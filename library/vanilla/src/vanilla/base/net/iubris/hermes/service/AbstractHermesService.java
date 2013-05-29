@@ -29,7 +29,8 @@ abstract public class AbstractHermesService<HS extends Service & HermesService<C
 extends Service implements HermesService<C> {
 
 	protected IBinder binder;
-	private ArrayList<Runnable> threadsToStart;
+	private ArrayList<Runnable> tasksToStart;
+	private ArrayList<Runnable> tasksToStop;
 	
 	@Override
 	public final IBinder onBind(Intent intent) {
@@ -47,17 +48,19 @@ extends Service implements HermesService<C> {
 	public void onCreate() {
 		super.onCreate();
 		binder = new HermesServiceBinder<AbstractHermesService<HS,C>,C>(this);
-		threadsToStart = new ArrayList<Runnable>(0);
+		tasksToStart = new ArrayList<Runnable>(0);
+		tasksToStop = new ArrayList<Runnable>(0);
 	}
 	
 	@Override
 	public final int onStartCommand(Intent intent, int flags, int startId) {
-		TaskOnStart.executeOnStart(threadsToStart);
+		SmoothTasks.execute(tasksToStart);
 		return START_STICKY;
 	}
 	
 	@Override
 	public final void onDestroy() {
+		SmoothTasks.execute(tasksToStop);
 		binder = null;
 	}
 	
@@ -74,6 +77,10 @@ extends Service implements HermesService<C> {
 	 */
 	@Override
 	public final void addToOnStartCommand(Runnable runnable) {
-		threadsToStart.add(runnable);
+		tasksToStart.add(runnable);
+	}
+	@Override
+	public final void addToOnDestroy(Runnable runnable) {
+		tasksToStop.add(runnable);
 	}
 }

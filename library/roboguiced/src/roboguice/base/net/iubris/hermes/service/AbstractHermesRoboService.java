@@ -46,10 +46,12 @@ extends RoboService implements HermesService<C> {
 //	@Inject private HermesRoboServiceListener<HS, C> hermesRoboServiceListener;
 	
 	private List<Runnable> threadsToStart;
+	private List<Runnable> tasksToStop;
 //	private List<Callable<Void>> threadsToStart;
 	
 	//start old way
 	protected IBinder binder;
+
 
 	@Override
 	public final IBinder onBind(Intent intent) {
@@ -74,13 +76,14 @@ Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:71]","post bin
 	@Override
 	public final int onStartCommand(Intent intent, int flags, int startId) {
 Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:75]","start onStart");		
-		TaskOnStart.executeOnStart(threadsToStart);
+		SmoothTasks.execute(threadsToStart);
 Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:77]","finish onStart");
 		return START_STICKY;
 	}
 	
 	@Override
 	public final void onDestroy() {
+		SmoothTasks.execute(tasksToStop);
 		binder = null;
 	}
 	// end old way
@@ -106,6 +109,10 @@ Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:77]","finish o
 	@Override
 	public final void addToOnStartCommand(Runnable runnable) {
 		threadsToStart.add(runnable);
+	}
+	@Override
+	public final void addToOnDestroy(Runnable runnable) {
+		tasksToStop.add(runnable);
 	}
 	/*public final void addToOnStartCommand(Callable<Void> callable) {
 //		threadsToStart.add(callable);

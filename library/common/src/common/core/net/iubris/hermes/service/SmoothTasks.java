@@ -6,12 +6,12 @@ import java.util.concurrent.Executors;
 
 import android.util.Log;
 
-public class TaskOnStart {
+public class SmoothTasks {
 	
-	static public void executeOnStart(List<Runnable> threadsToStart) {
+	static public void execute(List<Runnable> threadsToStart) {
 //		ExecutorService executorService = Executors.newFixedThreadPool(threadsToStart.size());
 		int availableProcessors = Runtime.getRuntime().availableProcessors();
-		int threadPoolNumber = availableProcessors+1;
+		int threadPoolNumber = availableProcessors/*+1*/;
 Log.d("TaskOnStart:14","processors: "+availableProcessors+" - using "+threadPoolNumber);
 		ExecutorService executorService = Executors.newFixedThreadPool(threadPoolNumber);
 Log.d("TaskOnStart:16","current thread is: "+Thread.currentThread().getName());
