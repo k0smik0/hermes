@@ -12,9 +12,9 @@ public class SmoothTasks {
 //		ExecutorService executorService = Executors.newFixedThreadPool(threadsToStart.size());
 		int availableProcessors = Runtime.getRuntime().availableProcessors();
 		int threadPoolNumber = availableProcessors/*+1*/;
-Log.d("TaskOnStart:14","processors: "+availableProcessors+" - using "+threadPoolNumber);
+Log.d("SmoothTasks:15","processors: "+availableProcessors+" - using "+threadPoolNumber);
 		ExecutorService executorService = Executors.newFixedThreadPool(threadPoolNumber);
-Log.d("TaskOnStart:16","current thread is: "+Thread.currentThread().getName());
+Log.d("SmoothTasks:17","current thread is: "+Thread.currentThread().getName());
 
 		for (Runnable runnable: threadsToStart) {
 			executorService.execute(runnable);

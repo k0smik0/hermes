@@ -7,6 +7,8 @@ import com.google.inject.Provides;
 
 public abstract class AbstractHermesModule<HS extends HermesService<C>,C> extends AbstractModule {
 
+	@Override
+	protected void configure() {}
 	/*
 	@Override
 	protected final void configure() {

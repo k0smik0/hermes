@@ -46,6 +46,8 @@ extends RoboService implements HermesService<C> {
 	private List<Runnable> tasksToStart;
 	private List<Runnable> tasksToStop;
 	
+//	private RoboAsyncTask<Void> asyncTaskToStart;
+	
 	//start old way
 	protected IBinder binder;
 
@@ -71,7 +73,7 @@ Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:71]","post bin
 	}
 	
 	@Override
-	public final int onStartCommand(Intent intent, int flags, int startId) {
+	public int onStartCommand(Intent intent, int flags, int startId) {
 Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:75]","start onStart");		
 		SmoothTasks.execute(tasksToStart);
 Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:77]","finish onStart");
@@ -79,7 +81,7 @@ Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:77]","finish o
 	}
 	
 	@Override
-	public final void onDestroy() {
+	public void onDestroy() {
 		SmoothTasks.execute(tasksToStop);
 		binder = null;
 	}

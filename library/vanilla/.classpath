@@ -6,6 +6,5 @@
 	<classpathentry excluding="net/iubris/hermes/connector/|net/iubris/hermes/connector/asynctask/|net/iubris/hermes/providers/|net/iubris/hermes/asynctask/HermesAsyncTask.java|net/iubris/hermes/asynctask/listactivity/HermesListActivityAsyncTask.java|net/iubris/hermes/activity/listactivity/HermesListAsyncTask.java" kind="src" path="src/useless"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/android-compatibilty-v4"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
