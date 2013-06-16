@@ -79,6 +79,7 @@
     <javac destdir="${build.dir}/classes/common/ui/splash" includeantruntime="false">
       <src path="${src.dir}/common/ui/splash" />
     	<include name="**/*.java"/>
+    	<exclude name="**/*SplashThread.java"/>
   		<classpath refid="classpath-ui-splash"/>
 		</javac>
 	</target>
@@ -110,7 +111,7 @@
         <attribute name="Bundle-Vendor" value="${vendor}" />
         <attribute name="Bundle-Version" value="${version}" />
         <attribute name="Bundle-License" value="${license.url} " />
-        <attribute name="Build-DocURL" value="${docurl}" />           
+        <attribute name="Build-DocURL" value="${docurl}" />
       </manifest>
       <metainf dir="." includes="${license.file}"/>
     </jar>

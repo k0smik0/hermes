@@ -56,13 +56,13 @@ Log.d("ServiceHandler:55","stop service");
 		context.stopService(serviceIntent);
 	}
 	
-	private boolean isServiceRunning() {	    
-	    for (RunningServiceInfo service : activityManager.getRunningServices(Integer.MAX_VALUE)) {
-	        if (hsServiceClass.getName().equals(service.service.getClassName())) {
-//Log.d("ServiceHandler",hsServiceClass + " found is running");	        	
-	            return true;
-	        }	        
-	    }
-	    return false;
+	private boolean isServiceRunning() {
+		for (RunningServiceInfo service : activityManager.getRunningServices(Integer.MAX_VALUE)) {
+			if (hsServiceClass.getName().equals(service.service.getClassName())) {
+//Log.d("ServiceHandler",hsServiceClass + " found is running");
+				return true;
+			}
+		}
+		return false;
 	}
 }

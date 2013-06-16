@@ -53,7 +53,7 @@ public class Connector<HS extends Service & HermesService<C>, C> {
 	@Inject
 	public Connector(Application applicationContext, Class<HS> serviceClass) {
 		this.context = applicationContext;
-Log.d("Connector:55",""+this.hashCode());		
+Log.d("Connector:55",""+this);		
 Log.d("Connector:56","context is: "+applicationContext.getClass().getSimpleName()+context);
 //Log.d("Connector",context caller: "+context);
 		this.serviceClass = serviceClass;

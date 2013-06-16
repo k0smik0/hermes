@@ -24,11 +24,11 @@
 	
 	<property name="project.name" value="hermes"/>
 	<property name="project.suffix" value="base"/>
-	<property name="project.branch" value="roboguice"/>
+	<property name="project.branch" value="roboguiced"/>
 
 
-  <property name="jar-base-roboguice.file" value="${build.dir}/jars/${project.name}-${project.suffix}-${project.branch}.jar"/>
-	<property name="jar-base-roboguice-inheriting.file" value="${build.dir}/jars/${project.name}-${project.suffix}-inheriting_ui-${project.branch}.jar"/>
+  <property name="jar-base-roboguiced.file" value="${build.dir}/jars/${project.name}-${project.suffix}-${project.branch}.jar"/>
+	<property name="jar-base-roboguiced-inheriting.file" value="${build.dir}/jars/${project.name}-${project.suffix}-ui-${project.branch}.jar"/>
 	
 	<path id="classpath-android">
 	  <fileset dir="${android-path}/platforms/android-${android-sdk-target-version}/">
@@ -36,56 +36,56 @@
 	  </fileset>
 	</path>
 
-	<path id="classpath-roboguice-base">
+	<path id="classpath-roboguiced-base">
 	  <path refid="classpath-android"/>
 	  <fileset dir="${libs-dir}">
       <include name="*.jar"/>
 	  </fileset>
 	</path>
 
-	<target name="clean-roboguice-base">
-    <delete dir="${build.dir}/classes/roboguice/base"/>
-		<delete dir="${build.dir}/classes/roboguice/inheriting_ui"/>
+	<target name="clean-roboguiced-base">
+    <delete dir="${build.dir}/classes/roboguiced/base"/>
+		<delete dir="${build.dir}/classes/roboguiced/ui"/>
 	</target>
 	
-	<target name="clean-roboguice-inheriting_ui">
-		<delete dir="${build.dir}/classes/roboguice/inheriting_ui"/>
+	<target name="clean-roboguiced-ui">
+		<delete dir="${build.dir}/classes/roboguiced/ui"/>
 	</target>
 	
-	<target name="clean" depends="clean-roboguice-base,clean-roboguice-inheriting_ui"/>
+	<target name="clean" depends="clean-roboguiced-base,clean-roboguiced-ui"/>
 
 	<target name="clean-jars">
-    <delete file="${jar-base-roboguice.file}"/>
-		<delete file="${jar-base-roboguice-inheriting.file}.file}"/>
+    <delete file="${jar-base-roboguiced.file}"/>
+		<delete file="${jar-base-roboguiced-inheriting.file}.file}"/>
 	</target>
 
-	<target name="compile-roboguice-base">
-    <mkdir dir="${build.dir}/classes/roboguice/base"/>
-    <javac destdir="${build.dir}/classes/roboguice/base" includeantruntime="false">
-      <src path="${src.dir}/roboguice/base" />
+	<target name="compile-roboguiced-base">
+    <mkdir dir="${build.dir}/classes/roboguiced/base"/>
+    <javac destdir="${build.dir}/classes/roboguiced/base" includeantruntime="false">
+      <src path="${src.dir}/roboguiced/base" />
       <include name="**/*.java"/>
     	<exclude name="**/HermesRoboServiceListener.java"/>
-      <classpath refid="classpath-roboguice-base"/>
+      <classpath refid="classpath-roboguiced-base"/>
 		</javac>
 	</target>
 	
-	<target name="compile-roboguice-inheriting_ui" depends="jar-roboguice-base">
-		<mkdir dir="${build.dir}/classes/roboguice/inheriting_ui"/>
-    <javac destdir="${build.dir}/classes/roboguice/inheriting_ui" includeantruntime="false">
-      <src path="${src.dir}/roboguice/inheriting_ui" />
+	<target name="compile-roboguiced-ui" depends="jar-roboguiced-base">
+		<mkdir dir="${build.dir}/classes/roboguiced/ui/base"/>
+    <javac destdir="${build.dir}/classes/roboguiced/ui/base" includeantruntime="false">
+      <src path="${src.dir}/roboguiced/ui/base" />
       <include name="**/*.java"/>
-      <classpath refid="classpath-roboguice-base"/>
+      <classpath refid="classpath-roboguiced-base"/>
     	<classpath>
     		<fileset dir="${build.dir}/jars">
-    			<include name="hermes-base-roboguice.jar"/>
+    			<include name="hermes-base-roboguiced.jar"/>
     		</fileset>
     	</classpath>
 		</javac>
 	</target>
 	
-	<target name="jar-roboguice-base" depends="clean-jars, clean-roboguice-base, compile-roboguice-base">
+	<target name="jar-roboguiced-base" depends="clean-jars, clean-roboguiced-base, compile-roboguiced-base">
 	  <mkdir dir="${build.dir}/jars/"/>
-	  <jar destfile="${jar-base-roboguice.file}" basedir="${build.dir}/classes/roboguice/base">
+	  <jar destfile="${jar-base-roboguiced.file}" basedir="${build.dir}/classes/roboguiced/base">
     	<manifest>
         <attribute name="Built-By" value="${user}" />    
         <attribute name="Bundle-Name" value="${name}" />
@@ -97,12 +97,12 @@
       </manifest>
       <metainf dir="." includes="${license.file}"/>
     </jar>
-    <antcall target="clean-roboguice-base"/>
+    <antcall target="clean-roboguiced-base"/>
   </target>
 	
-	<target name="jar-roboguice-inheriting_ui" depends="clean-jars, clean-roboguice-base, compile-roboguice-inheriting_ui">
+	<target name="jar-roboguiced-ui" depends="clean-jars, clean-roboguiced-base, compile-roboguiced-ui">
 	  <mkdir dir="${build.dir}/jars/"/>
-	  <jar destfile="${jar-base-roboguice-inheriting.file}" basedir="${build.dir}/classes/roboguice/inheriting_ui">
+	  <jar destfile="${jar-base-roboguiced-inheriting.file}" basedir="${build.dir}/classes/roboguiced/ui">
     	<manifest>
         <attribute name="Built-By" value="${user}" />    
         <attribute name="Bundle-Name" value="${name}" />
@@ -114,9 +114,9 @@
       </manifest>
       <metainf dir="." includes="${license.file}"/>
     </jar>
-    <antcall target="clean-roboguice-inheriting_ui"/>
+    <antcall target="clean-roboguiced-ui"/>
   </target>
 
-  <target name="jars" depends="jar-roboguice-base, jar-roboguice-inheriting_ui"/>
+  <target name="jars" depends="jar-roboguiced-base, jar-roboguiced-ui"/>
 	
 </project>
