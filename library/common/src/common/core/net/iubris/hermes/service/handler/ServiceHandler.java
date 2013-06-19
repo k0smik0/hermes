@@ -27,7 +27,6 @@ import android.app.ActivityManager.RunningServiceInfo;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 public class ServiceHandler<HS extends Service & HermesService<C>, C> {
 	
@@ -46,13 +45,13 @@ public class ServiceHandler<HS extends Service & HermesService<C>, C> {
 
 	public void startService() {		
 		if (!isServiceRunning()) {
-Log.d("ServiceHandler:49","start service");
+//Log.d("ServiceHandler:49","start service");
 			context.startService(serviceIntent);
 		}
 	}
 	
 	public void stopService() {
-Log.d("ServiceHandler:55","stop service");
+//Log.d("ServiceHandler:55","stop service");
 		context.stopService(serviceIntent);
 	}
 	

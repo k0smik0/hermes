@@ -21,7 +21,9 @@ package net.iubris.hermes.service;
 
 import net.iubris.hermes.service.exposer.ControllerExposer;
 
-public interface HermesService<C> extends ControllerExposer<C> {
+public interface HermesServiceWithSmoothTask<C> extends ControllerExposer<C> {
 	void doOnBind();
 	void doOnUnBind();
+	void addToExecuteOnStartCommand(Runnable runnable);
+	void addToExecuteOnDestroy(Runnable runnable);
 }

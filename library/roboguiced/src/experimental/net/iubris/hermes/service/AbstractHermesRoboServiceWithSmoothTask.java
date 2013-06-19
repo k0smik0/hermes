@@ -19,13 +19,16 @@
  ******************************************************************************/
 package net.iubris.hermes.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.iubris.hermes.service.binder.HermesServiceBinder;
 import roboguice.service.RoboService;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-abstract public class AbstractHermesRoboService<HS extends Service & HermesService<C>, C> 
+abstract public class AbstractHermesRoboServiceWithSmoothTask<HS extends Service & HermesService<C>, C> 
 extends RoboService implements HermesService<C> {
 
 	// new way - not working ;/
@@ -39,6 +42,11 @@ extends RoboService implements HermesService<C> {
 	}
 	*/
 	// end new way
+	
+	private List<Runnable> tasksToStart;
+	private List<Runnable> tasksToStop;
+	
+//	private RoboAsyncTask<Void> asyncTaskToStart;
 	
 	//start old way
 	protected IBinder binder;
@@ -56,20 +64,25 @@ extends RoboService implements HermesService<C> {
 		super.onCreate();
 //Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:64]","post super.onCreate");
 
+		tasksToStart = new ArrayList<Runnable>(0);
+		tasksToStop = new ArrayList<Runnable>(0);
+		
 //Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:69]","binding");
-		binder = new HermesServiceBinder<AbstractHermesRoboService<HS, C>,C>(this);
+		binder = new HermesServiceBinder<AbstractHermesRoboServiceWithSmoothTask<HS, C>,C>(this);
 //Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:71]","post binding");
 	}
 	
-	/*@Override
+	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 //Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:75]","start onStart");		
+		SmoothTasks.execute(tasksToStart);
 //Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:77]","finish onStart");
 		return START_STICKY;
-	}*/
+	}
 	
 	@Override
 	public void onDestroy() {
+		SmoothTasks.execute(tasksToStop);
 		binder = null;
 	}
 	// end old way
@@ -86,4 +99,18 @@ extends RoboService implements HermesService<C> {
 	@Override
 	public void doOnUnBind() {};
 	
+	/**
+	 * use this method within "onCreate" in order to execute some blocking code<br/>
+	 * every invocation add a new Runnable to internal List<Runnable>: <br/>
+	 * then, within "onStartCommand", an Executor will executes all threads   
+	 * @param runnable
+	 */
+	@Override
+	public final void addToExecuteOnStartCommand(Runnable runnable) {
+		tasksToStart.add(runnable);
+	}
+	@Override
+	public final void addToExecuteOnDestroy(Runnable runnable) {
+		tasksToStop.add(runnable);
+	}
 }

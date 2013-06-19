@@ -25,7 +25,6 @@ import net.iubris.hermes.connector.HermesEventHandlerInternalDelegate;
 import net.iubris.hermes.service.HermesService;
 import net.iubris.hermes.service.handler.ServiceHandler;
 import android.app.Service;
-import android.util.Log;
 
 public class HermesMainEventHandler<HS extends Service & HermesService<C>, C> {	
 		
@@ -39,15 +38,15 @@ public class HermesMainEventHandler<HS extends Service & HermesService<C>, C> {
 	}
 	
 	public void dispatchOnCreate() {
-Log.d("HermesMainEventHandler:42","onCreate: starting service");
+//Log.d("HermesMainEventHandler:42","onCreate: starting service");
 		serviceHandler.startService();
-Log.d("HermesMainEventHandler:44","onCreate: started service");
+//Log.d("HermesMainEventHandler:44","onCreate: started service");
 	}
 	
 	public void dispatchOnStart() {
-Log.d("HermesMainEventHandler:48","onStart: binding service");
+//Log.d("HermesMainEventHandler:48","onStart: binding service");
 		eventHandlerInternalDelegate.dispatchOnStart();
-Log.d("HermesMainEventHandler:50","onStart: post binding service");		
+//Log.d("HermesMainEventHandler:50","onStart: post binding service");		
 	}
 	
 	
@@ -56,7 +55,7 @@ Log.d("HermesMainEventHandler:50","onStart: post binding service");
 	}
 	
 	public void dispatchOnDestroy() {
-Log.d("MainEventHandler","onDestroy: stopping");
+//Log.d("MainEventHandler","onDestroy: stopping");
 		serviceHandler.stopService();
 		/*try {
 		} catch (NullPointerException e) {

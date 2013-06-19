@@ -25,7 +25,6 @@ import android.app.Application;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 /**
  * heavy inspired to RoboSplashActivity (from RoboGuice)
@@ -90,14 +89,14 @@ Log.d("HermesSplashActivity:47",""+splashActivityDelegate);
 			public void run() {
 				doOtherStuffinBackground(app);
 				final long duration = System.currentTimeMillis() - start;
-Log.d("HermesSplashActivity:92","duration: "+duration);
+//Log.d("HermesSplashActivity:92","duration: "+duration);
 				if (duration < minDisplayMs) {
-Log.d("HermesSplashActivity:94","sleeping still: "+(minDisplayMs-duration));					
+//Log.d("HermesSplashActivity:94","sleeping still: "+(minDisplayMs-duration));					
 					try {
 						Thread.sleep(minDisplayMs - duration);
 					} catch (InterruptedException e) {
 						Thread.interrupted();
-Log.d("HermesSplashActivity:100","interrupted");
+//Log.d("HermesSplashActivity:100","interrupted");
 					}
 				}
 				

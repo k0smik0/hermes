@@ -4,7 +4,6 @@ import javax.inject.Inject;
 
 import net.iubris.hermes.service.HermesService;
 import android.app.Service;
-import android.util.Log;
 
 public class HermesEventHandlerInternalDelegate<HS extends Service & HermesService<C>, C> {
 	
@@ -17,13 +16,13 @@ public class HermesEventHandlerInternalDelegate<HS extends Service & HermesServi
 
 	public void dispatchOnStart(){
 		if (!connector.isServiceBound() ) {
-Log.d("HermesEventHandlerInternalDelegate:20","dispatchOnStart: "+connector.getContext()+" binding");
+//Log.d("HermesEventHandlerInternalDelegate:20","dispatchOnStart: "+connector.getContext()+" binding");
 			connector.doBindService();
 		}
 	}
 	
 	public void dispatchOnBackPressed() {
-Log.d("HermesEventHandlerInternalDelegate:26","dispatchOnBackPressed: "+connector.getContext()+" unbinding");
+//Log.d("HermesEventHandlerInternalDelegate:26","dispatchOnBackPressed: "+connector.getContext()+" unbinding");
 		connector.doUnbindService();
 	}
 	

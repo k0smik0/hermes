@@ -36,7 +36,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
-import android.util.Log;
 
 @Singleton
 public class Connector<HS extends Service & HermesService<C>, C> {
@@ -53,8 +52,8 @@ public class Connector<HS extends Service & HermesService<C>, C> {
 	@Inject
 	public Connector(Application applicationContext, Class<HS> serviceClass) {
 		this.context = applicationContext;
-Log.d("Connector:55",""+this);		
-Log.d("Connector:56","context is: "+applicationContext.getClass().getSimpleName()+context);
+//Log.d("Connector:55",""+this);		
+//Log.d("Connector:56","context is: "+applicationContext.getClass().getSimpleName()+context);
 //Log.d("Connector",context caller: "+context);
 		this.serviceClass = serviceClass;
 		//this.serviceConnection = serviceConnection;
@@ -66,9 +65,9 @@ Log.d("Connector:56","context is: "+applicationContext.getClass().getSimpleName(
 	
 	protected boolean doBindService() {
 		binding  = true;
-Log.d("Connector:67", context+" binding");
+//Log.d("Connector:67", context+" binding");
 		countDownLatch = new CountDownLatch(1);
-Log.d("Connector:69","countdown = "+countDownLatch.getCount());
+//Log.d("Connector:69","countdown = "+countDownLatch.getCount());
 		final Intent intent = new Intent();
 		intent.setClass(context, serviceClass);
 		/*serviceIsBound =*/ 
@@ -77,11 +76,11 @@ Log.d("Connector:69","countdown = "+countDownLatch.getCount());
 	}
 	
 	protected void doUnbindService() {
-Log.d("Connector:79",context+" unbinding?");
+//Log.d("Connector:79",context+" unbinding?");
 		if (isServiceBound()) {
-Log.d("Connector:81","yes is bounded with "+context+" -> unbinding");
+//Log.d("Connector:81","yes is bounded with "+context+" -> unbinding");
 			context.unbindService(serviceConnection);
-Log.d("Connector:83","unbounded from "+context);
+//Log.d("Connector:83","unbounded from "+context);
 		}
 	}
 	
@@ -91,11 +90,11 @@ Log.d("Connector:83","unbounded from "+context);
 	
 	public C getController() throws ControllerUnavailableException {
 		if (!isServiceBound()) {
-Log.d("Connector:94","getting service but it is not bounded! binding...");
+//Log.d("Connector:94","getting service but it is not bounded! binding...");
 			if (!binding)
 				doBindService();
-			else 
-Log.d("Connector:98","it's already binding...");
+//			else  
+//Log.d("Connector:98","it's already binding...");
 		}
 		try {
 			boolean await = countDownLatch.await(CONNECTION_TIMEOUT,TimeUnit.SECONDS);
@@ -105,9 +104,9 @@ Log.d("Connector:98","it's already binding...");
 //			e.printStackTrace();
 			throw new ControllerUnavailableException(e);
 		}
-Log.d("Connector:108","countdown = "+countDownLatch.getCount());
+//Log.d("Connector:108","countdown = "+countDownLatch.getCount());
 		C controller = controllerExposerService.getController();
-Log.d("Connector:110","returning "+controller.getClass().getSimpleName()+"@"+controller.hashCode());
+//Log.d("Connector:110","returning "+controller.getClass().getSimpleName()+"@"+controller.hashCode());
 		return controller;
 //		return serviceConnection.getService();
 	}
@@ -138,17 +137,17 @@ Ln.d(service);
 		@Override
 		public void onServiceConnected(ComponentName name, IBinder service) {
 			Connector.this.controllerExposerService = ((HermesServiceBinder<HS,C>)service).getService(); // cast
-Log.d("HermesServiceConnection:140",context+" connected to "+service);
+//Log.d("HermesServiceConnection:140",context+" connected to "+service);
 			binding = false;
 			Connector.this.countDownLatch.countDown();		
 		}
 		@Override
 		public void onServiceDisconnected(ComponentName name) {
 			Connector.this.controllerExposerService = null;
-Log.d("HermesServiceConnection:142",name.getShortClassName()+"disconnected - serviceBound null");
+//Log.d("HermesServiceConnection:142",name.getShortClassName()+"disconnected - serviceBound null");
 			Connector.this.countDownLatch = null;			
-Log.d("HermesServiceConnection:144",name.getShortClassName()+"disconnected - countDownLatch null");
-Log.d("HermesServiceConnection:145","disconnected");
+//Log.d("HermesServiceConnection:144",name.getShortClassName()+"disconnected - countDownLatch null");
+//Log.d("HermesServiceConnection:145","disconnected");
 		}		
 	}
 

@@ -26,7 +26,6 @@ import roboguice.activity.event.OnDestroyEvent;
 import roboguice.activity.event.OnStartEvent;
 import roboguice.event.Observes;
 import android.app.Service;
-import android.util.Log;
 
 import com.google.inject.Inject;
 
@@ -43,12 +42,12 @@ public class HermesMainRoboActivityListener<HS extends Service & HermesService<C
 	}
 
 	public void dispatchOnCreate(@Observes OnCreateEvent onCreateEvent) {
-Log.d("HermesMainRoboActivityListener:46","dispatchOnCreate");
+//Log.d("HermesMainRoboActivityListener:46","dispatchOnCreate");
 		mainEventHandler.dispatchOnCreate();
 	}
 	
 	public void dispatchOnStart(@Observes OnStartEvent onStartEvent) {
-Log.d("HermesMainRoboActivityListener:51","dispatchOnStart:");
+//Log.d("HermesMainRoboActivityListener:51","dispatchOnStart:");
 		mainEventHandler.dispatchOnStart();
 	}
 	
