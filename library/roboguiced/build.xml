@@ -102,7 +102,7 @@
 	
 	<target name="jar-roboguiced-ui" depends="clean-jars, clean-roboguiced-base, compile-roboguiced-ui">
 	  <mkdir dir="${build.dir}/jars/"/>
-	  <jar destfile="${jar-base-roboguiced-inheriting.file}" basedir="${build.dir}/classes/roboguiced/ui">
+	  <jar destfile="${jar-base-roboguiced-inheriting.file}" basedir="${build.dir}/classes/roboguiced/ui/base">
     	<manifest>
         <attribute name="Built-By" value="${user}" />    
         <attribute name="Bundle-Name" value="${name}" />

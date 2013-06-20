@@ -75,6 +75,7 @@ extends Service implements HermesService<C> {
 	 * then, within "onStartCommand", an Executor will executes all threads   
 	 * @param runnable
 	 */
+	/*
 	@Override
 	public final void addToExecuteOnStartCommand(Runnable runnable) {
 		tasksToStart.add(runnable);
@@ -82,5 +83,5 @@ extends Service implements HermesService<C> {
 	@Override
 	public final void addToExecuteOnDestroy(Runnable runnable) {
 		tasksToStop.add(runnable);
-	}
+	}*/
 }

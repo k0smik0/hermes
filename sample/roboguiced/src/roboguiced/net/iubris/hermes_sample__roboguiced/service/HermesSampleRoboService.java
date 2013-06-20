@@ -22,7 +22,6 @@ package net.iubris.hermes_sample__roboguiced.service;
 import net.iubris.hermes.service.AbstractHermesRoboService;
 import net.iubris.hermes_sample__roboguiced.controller.SampleController;
 import roboguice.util.Ln;
-import android.util.Log;
 
 import com.google.inject.Inject;
  
@@ -36,7 +35,7 @@ public class HermesSampleRoboService extends AbstractHermesRoboService<HermesSam
 	public void onCreate() {
 		super.onCreate();
 Ln.d("onCreate");
-
+/*
 		addToExecuteOnStartCommand( new Runnable() {
 			@Override
 			public void run() {
@@ -58,6 +57,7 @@ Ln.d("onCreate");
 				Log.d(this.getClass().getSimpleName()+" at "+"HermesSampleRoboService@"+HermesSampleRoboService.this.hashCode()+":57", "third executed");
 			}
 		});
+		*/
 		
 /*
 		addToOnStartCommand( new Callable<Void>() {
