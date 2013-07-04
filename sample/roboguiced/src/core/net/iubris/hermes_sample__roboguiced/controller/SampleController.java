@@ -20,5 +20,5 @@
 package net.iubris.hermes_sample__roboguiced.controller;
 
 public interface SampleController {
-	public void doSomething();
+	public String doSomething();
 }

@@ -45,7 +45,7 @@ public class Connector<HS extends Service & HermesService<C>, C> {
 	private HermesServiceConnection serviceConnection = new HermesServiceConnection();
 	
 	private CountDownLatch countDownLatch = null;
-	private static final long CONNECTION_TIMEOUT = 3; // 3 second -> use seconds as timeunit!
+	private static final long CONNECTION_TIMEOUT = 4; // 4 second -> use seconds as timeunit!
 	private HS controllerExposerService = null;
 	private boolean binding = false;
 	

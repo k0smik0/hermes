@@ -22,59 +22,63 @@ package net.iubris.hermes_sample__roboguiced.activity.examples;
 import javax.inject.Inject;
 
 import net.iubris.hermes.connector.Connector;
-import net.iubris.hermes.connector.exception.ControllerUnavailableException;
+import net.iubris.hermes.connector.asynctask.HermesConnectingRoboAsyncTask;
 import net.iubris.hermes_sample__roboguiced.R;
 import net.iubris.hermes_sample__roboguiced.controller.SampleController;
 import net.iubris.hermes_sample__roboguiced.service.HermesSampleRoboService;
 import roboguice.activity.RoboActivity;
+import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 
+@ContentView(R.layout.sample_activities)
 public class HermesSampleCompositingRoboActivity extends RoboActivity {
 
-//	@Inject RoboConnector<HermesSampleRoboService, SampleController> connector;
 	@Inject Connector<HermesSampleRoboService, SampleController> connector;
 	
-//	@Inject HermesRoboActivityListener<HermesSampleRoboService, SampleController> hermesRoboActivityListener;
-	
-//	private RoboHermesClientDelegate<HermesSampleRoboService, SampleController> hermesClientDelegate;
-	
 	@InjectView(R.id.here_button) private Button hereButton;
+	
+	@InjectView(R.id.text_view) TextView textView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.sample_activities);
+//		setContentView(R.layout.sample_activities);
 		hereButton.setOnClickListener(hereButtonListener);
+		
+		textView.setMovementMethod(new ScrollingMovementMethod());
 	}
-	
-	@Override
-	public void onBackPressed() {
-		super.onBackPressed();
-//		hermesRoboActivityListener.dispatchOnBackPressed();
-	}
-	
-	/*@Override
-	protected void onResume() {
-		super.onResume();
-		hereButton.setOnClickListener(hereButtonListener);
-	}*/
 	
 	private OnClickListener hereButtonListener = new OnClickListener() {	
 		@Override
 		public void onClick(View arg0) {
-			SampleController anExposer;
+			/*SampleController anExposer;
 			try {
 				anExposer = connector.getController();
-				anExposer.doSomething();
+				String something = anExposer.doSomething();
+				
+				textView.setText(textView.getText()
+						+something
+						+"\n\n");				
+				
 			} catch (ControllerUnavailableException e) {
 				Toast.makeText(HermesSampleCompositingRoboActivity.this, "something heavy wrong: please repress button", Toast.LENGTH_SHORT).show();
 				e.printStackTrace();
-			}
+			}*/
+			new HermesConnectingRoboAsyncTask<HermesSampleRoboService, SampleController>(HermesSampleCompositingRoboActivity.this.getApplicationContext()) {
+				@Override
+				protected void useController(SampleController controller) {
+					String doSomething = controller.doSomething();
+					textView.setText(""+textView.getText()
+							+doSomething
+							+"\n\n");
+				}
+			}.execute();
 		}
 	};
 }

@@ -2,33 +2,38 @@ package net.iubris.hermes_sample__roboguiced.controller;
 
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
-import android.content.Context;
+import android.location.Location;
 import android.location.LocationManager;
-import android.widget.Toast;
 
+@Singleton
 public class ConcreteSampleController implements SampleController {
 	
-	private Context context;
+//	private Context context;
 	protected LocationManager locationManager;
 	
 	@Inject
-	public ConcreteSampleController(Context context, LocationManager locationManager) {
-		this.context = context;
+	public ConcreteSampleController(/*Context context,*/ LocationManager locationManager) {
+//		this.context = context;
 		this.locationManager = locationManager;
 	}
 	
 	@Override
-	public void doSomething() { 
-		Toast.makeText(
+	public String doSomething() {
+		Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		
+		String s = whoIAm()+ ((lastKnownLocation!=null)? lastKnownLocation: "sorry, no gps location found");
+				
+		/*Toast.makeText(
 				context,
-			whoIAm()+
-				locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER), 
-			Toast.LENGTH_SHORT).show();
+			s, 
+			Toast.LENGTH_SHORT).show();*/
+		return s;
 	}
 	
 	protected String whoIAm(){
-		return "Hi, I'm "+this.getClass().getSimpleName()+"\nand\nyou are in:\n";
+		return "Hi, I'm "+this.getClass().getSimpleName()+"\nand you are in:\n";
 	}
 
 }

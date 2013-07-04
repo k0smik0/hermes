@@ -19,17 +19,18 @@
  ******************************************************************************/
 package net.iubris.hermes.activity.main;
 
-import net.iubris.hermes.activity.HermesRoboActivity;
 import net.iubris.hermes.client.main.HermesMain;
 import net.iubris.hermes.event.listener.HermesMainRoboActivityListener;
 import net.iubris.hermes.service.HermesService;
+import roboguice.activity.RoboActivity;
 import android.app.Service;
 import android.util.Log;
 
 import com.google.inject.Inject;
 
 public class HermesMainRoboActivity<C,HS extends Service & HermesService<C>> 
-extends HermesRoboActivity<C, HS> implements HermesMain
+//extends HermesRoboActivity<C, HS> implements HermesMain
+extends RoboActivity implements HermesMain
 //implements HermesClient<C,HS>/*, IHermesRoboActivity<HS, C>*/{
 //implements HermesClient<C>/*, IHermesRoboActivity<HS, C>*/ 
 {
