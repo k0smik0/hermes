@@ -17,8 +17,8 @@
  * along with 'Hermes'; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  ******************************************************************************/
-package net.iubris.hermes_vanilla_sample.controller;
+package net.iubris.hermes_sample__vanilla.controller;
 
 public interface SampleController {
-	public void doSomething();
+	public String doSomething();
 }

@@ -32,8 +32,6 @@ import roboguice.inject.InjectView;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
 
 @ContentView(R.layout.sample_activities)
@@ -41,44 +39,55 @@ public class HermesSampleCompositingRoboActivity extends RoboActivity {
 
 	@Inject Connector<HermesSampleRoboService, SampleController> connector;
 	
-	@InjectView(R.id.here_button) private Button hereButton;
+//	@InjectView(R.id.here_button) private Button hereButton;
 	
 	@InjectView(R.id.text_view) TextView textView;
+
+	private HermesConnectingRoboAsyncTask<HermesSampleRoboService,SampleController> hermesConnectingRoboAsyncTask;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {		
+	protected void onCreate(Bundle savedInstanceState) {
+//Debug.startMethodTracing(Environment.getExternalStorageDirectory().getPath()+"/traces/hermes_sample_roboguiced__using_connector");
 		super.onCreate(savedInstanceState);
 //		setContentView(R.layout.sample_activities);
-		hereButton.setOnClickListener(hereButtonListener);
+//		hereButton.setOnClickListener(hereButtonListener);
 		
 		textView.setMovementMethod(new ScrollingMovementMethod());
+		
+		hermesConnectingRoboAsyncTask = new HermesConnectingRoboAsyncTask<HermesSampleRoboService, SampleController>(/*HermesSampleCompositingRoboActivity.this.*/getApplicationContext()) {
+//			protected void onPreExecute() throws Exception {};
+			@Override
+			protected void useController(SampleController controller) {
+				String doSomething = controller.doSomething();
+				textView.setText(""+textView.getText()
+						+doSomething
+						+"\n\n");
+//Debug.stopMethodTracing();
+			}			
+		};
 	}
 	
-	private OnClickListener hereButtonListener = new OnClickListener() {	
-		@Override
-		public void onClick(View arg0) {
-			/*SampleController anExposer;
-			try {
-				anExposer = connector.getController();
-				String something = anExposer.doSomething();
-				
-				textView.setText(textView.getText()
-						+something
-						+"\n\n");				
-				
-			} catch (ControllerUnavailableException e) {
-				Toast.makeText(HermesSampleCompositingRoboActivity.this, "something heavy wrong: please repress button", Toast.LENGTH_SHORT).show();
-				e.printStackTrace();
-			}*/
-			new HermesConnectingRoboAsyncTask<HermesSampleRoboService, SampleController>(HermesSampleCompositingRoboActivity.this.getApplicationContext()) {
-				@Override
-				protected void useController(SampleController controller) {
-					String doSomething = controller.doSomething();
-					textView.setText(""+textView.getText()
-							+doSomething
-							+"\n\n");
-				}
-			}.execute();
-		}
-	};
+//	@Override
+//	protected void onResume() {
+//		super.onResume();
+////Debug.stopMethodTracing();
+//	}
+	
+	public void onClickHere(View arg0) {
+		/*SampleController anExposer;
+		try {
+			anExposer = connector.getController();
+			String something = anExposer.doSomething();
+			
+			textView.setText(textView.getText()
+					+something
+					+"\n\n");				
+			
+		} catch (ControllerUnavailableException e) {
+			Toast.makeText(HermesSampleCompositingRoboActivity.this, "something heavy wrong: please repress button", Toast.LENGTH_SHORT).show();
+			e.printStackTrace();
+		}*/
+		
+		hermesConnectingRoboAsyncTask.execute();
+	}
 }

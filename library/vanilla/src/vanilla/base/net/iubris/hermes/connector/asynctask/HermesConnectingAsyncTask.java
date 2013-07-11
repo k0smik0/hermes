@@ -46,7 +46,7 @@ public abstract class HermesConnectingAsyncTask<HS extends Service & HermesServi
 		dialog.show();*/
 	}
 	@Override
-	final protected C doInBackground(Void... params) {
+	protected final C doInBackground(Void... params) {
 		try {
 			return connector.getController();
 		} catch (ControllerUnavailableException e) {
@@ -55,7 +55,7 @@ public abstract class HermesConnectingAsyncTask<HS extends Service & HermesServi
 		return null;
 	}
 	@Override
-	protected void onPostExecute(C controller) {
+	protected final void onPostExecute(C controller) {
 //		if (dialog != null)
 //			dialog.dismiss();
 		useController(controller);

@@ -22,7 +22,23 @@
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 	 
-	<Button android:text="@string/here_button_text" android:id="@+id/here_button"
-		android:layout_width="wrap_content" android:layout_height="wrap_content" />		 
+	<Button 
+		android:text="@string/here_button_text" 
+		android:id="@+id/here_button"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:onClick="onClickHere" />
+	
+	<TextView
+		android:id="@+id/text_view"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:paddingLeft="10dp"
+		android:gravity="left"
+		android:scrollHorizontally="false"
+		android:singleLine="false"
+		android:maxLines="20"
+		android:scrollbars="vertical"		
+		android:textIsSelectable="false"/>	 
 </LinearLayout>
 

@@ -31,40 +31,35 @@ import roboguice.inject.InjectView;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 @ContentView(R.layout.sample_activities)
 public class HermesSampleInheritingRoboActivity extends HermesRoboActivity<SampleController,HermesSampleRoboService> {
 	
-	@InjectView(R.id.here_button) private Button hereButton;
+//	@InjectView(R.id.here_button) private Button hereButton;
 	@InjectView(R.id.text_view) TextView textView;
 		
 	@Override
 	public void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);
-		hereButton.setOnClickListener(hereButtonListener);
 		
 		textView.setMovementMethod(new ScrollingMovementMethod());
 	}
 	
-	private OnClickListener hereButtonListener = new OnClickListener() {	
-		@Override
-		public void onClick(View arg0) {
+	public void onClickHere(View arg0) {
 //			SampleController anExposer;
-			
-			new HermesConnectingRoboAsyncTask<HermesSampleRoboService, SampleController>(HermesSampleInheritingRoboActivity.this.getApplicationContext()) {
-				@Override
-				protected void useController(SampleController controller) {
-					String doSomething = controller.doSomething();
-					textView.setText(""+textView.getText()
-							+doSomething
-							+"\n\n");
-				}
-			}.execute();
-			/*try {
+		
+		new HermesConnectingRoboAsyncTask<HermesSampleRoboService, SampleController>(HermesSampleInheritingRoboActivity.this.getApplicationContext()) {
+			@Override
+			protected void useController(SampleController controller) {
+				String doSomething = controller.doSomething();
+				textView.setText(""+textView.getText()
+						+doSomething
+						+"\n\n");
+			}
+		}.execute();
+		/*try {
 				anExposer = getController();
 				String something = anExposer.doSomething();
 				textView.setText(""+textView.getText()
@@ -77,8 +72,7 @@ public class HermesSampleInheritingRoboActivity extends HermesRoboActivity<Sampl
 //				e.printStackTrace();
 				onException(e);
 			}*/
-		}
-	};
+	}
 	
 //	@Override
 	protected void onException(ControllerUnavailableException arg0) {

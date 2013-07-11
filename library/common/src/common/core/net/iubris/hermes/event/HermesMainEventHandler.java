@@ -21,7 +21,7 @@ package net.iubris.hermes.event;
 
 import javax.inject.Inject;
 
-import net.iubris.hermes.connector.HermesEventHandlerInternalDelegate;
+import net.iubris.hermes.connector.HermesEventHandler;
 import net.iubris.hermes.service.HermesService;
 import net.iubris.hermes.service.handler.ServiceHandler;
 import android.app.Service;
@@ -29,11 +29,11 @@ import android.app.Service;
 public class HermesMainEventHandler<HS extends Service & HermesService<C>, C> {	
 		
 	private final ServiceHandler<HS,C> serviceHandler;
-	private final HermesEventHandlerInternalDelegate<HS, C> eventHandlerInternalDelegate;
+	private final HermesEventHandler<HS, C> eventHandler;
 	
 	@Inject
-	public HermesMainEventHandler(HermesEventHandlerInternalDelegate<HS, C> eventHandlerInternalDelegate, ServiceHandler<HS,C> serviceHandler) {
-		this.eventHandlerInternalDelegate = eventHandlerInternalDelegate;		
+	public HermesMainEventHandler(HermesEventHandler<HS, C> eventHandler, ServiceHandler<HS,C> serviceHandler) {
+		this.eventHandler = eventHandler;		
 		this.serviceHandler = serviceHandler;		
 	}
 	
@@ -45,13 +45,13 @@ public class HermesMainEventHandler<HS extends Service & HermesService<C>, C> {
 	
 	public void dispatchOnStart() {
 //Log.d("HermesMainEventHandler:48","onStart: binding service");
-		eventHandlerInternalDelegate.dispatchOnStart();
+		eventHandler.dispatchOnStart();
 //Log.d("HermesMainEventHandler:50","onStart: post binding service");		
 	}
 	
 	
 	public void dispatchOnBackPressed() {
-		eventHandlerInternalDelegate.dispatchOnBackPressed();
+		eventHandler.dispatchOnBackPressed();
 	}
 	
 	public void dispatchOnDestroy() {

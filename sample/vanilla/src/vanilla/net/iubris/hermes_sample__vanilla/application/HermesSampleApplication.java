@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Copyleft 2013 Massimiliano Leone - massimiliano.leone@iubris.net .
  * 
- * HereListener.java is part of 'Hermes'.
+ * HermesSampleApplication.java is part of 'Hermes'.
  * 
  * 'Hermes' is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,30 +17,26 @@
  * along with 'Hermes'; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  ******************************************************************************/
-package net.iubris.hermes_vanilla_sample.activity.examples;
+package net.iubris.hermes_sample__vanilla.application;
 
-import net.iubris.hermes.client.HermesClient;
-import net.iubris.hermes.connector.exception.ControllerUnavailableException;
-import net.iubris.hermes_vanilla_sample.controller.SampleController;
-import android.view.View;
-import android.view.View.OnClickListener;
+import net.iubris.hermes.provider.HermesProvider;
+import net.iubris.hermes_sample__vanilla.service.HermesSampleService;
+import android.app.Application;
+import android.os.Debug;
+import android.os.Environment;
 
-final class HereListener implements OnClickListener {
+//public class HermesSampleApplication extends AbstractHermesApplication<HermesSampleService, SampleController> {
+public class HermesSampleApplication extends Application {
+
+	/*@Override
+	public Class<HermesSampleService> providesHSClass() {
+		return HermesSampleService.class;
+	}*/
 	
-	private final HermesClient<SampleController> hermesClient;
-	
-	HereListener(HermesClient<SampleController> hermesClient) {
-		this.hermesClient = hermesClient;
-	}
-
 	@Override
-	public void onClick(View arg0) {
-		SampleController anExposer;
-		try {
-			anExposer = hermesClient.getController();
-			anExposer.doSomething();
-		} catch (ControllerUnavailableException e) {
-			e.printStackTrace();
-		}		
+	public void onCreate() {
+		super.onCreate();
+Debug.startMethodTracing(Environment.getExternalStorageDirectory().getPath()+"/traces/hermes_sample_vanilla__startup");
+		HermesProvider.init(this, HermesSampleService.class);
 	}
 }

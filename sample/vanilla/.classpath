@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/core"/>
-	<classpathentry excluding="net/iubris/hermes_vanilla_sample/activity/splash/HermeSampleSplashActivity.java" kind="src" path="src/vanilla"/>
+	<classpathentry excluding="net/iubris/hermes_vanilla_sample/activity/splash/HermeSampleSplashActivity.java|net/iubris/hermes_sample__vanilla/activity/examples/HereListener.java" kind="src" path="src/vanilla"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>

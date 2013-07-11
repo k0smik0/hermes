@@ -22,26 +22,30 @@ package net.iubris.hermes.activity;
 import net.iubris.hermes.client.HermesClient;
 import net.iubris.hermes.connector.Connector;
 import net.iubris.hermes.connector.exception.ControllerUnavailableException;
-import net.iubris.hermes.event.HermesMainEventHandler;
-import net.iubris.hermes.providers.HermesProvider;
+import net.iubris.hermes.provider.HermesProvider;
+import net.iubris.hermes.provider.exception.HermesProvidingException;
 import net.iubris.hermes.service.HermesService;
 import android.app.Activity;
-import android.app.Application;
 import android.app.Service;
 import android.os.Bundle;
 
-abstract public class HermesActivity<C,HS extends Service & HermesService<C>,HP extends Application & HermesProvider<HS, C>> 
+abstract public class HermesActivity<C,HS extends Service & HermesService<C>/*,HP extends Application & HermesProvider<HS, C>*/> 
 extends Activity implements HermesClient<C> {
 	
 	protected Connector<HS, C> connector;
-	protected HermesMainEventHandler<HS,C> mainEventHandler;
+//	protected HermesMainEventHandler<HS,C> mainEventHandler;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		@SuppressWarnings("unchecked")
-		HP hermesProvider = (HP)getApplication();
-		connector = hermesProvider.getConnector();
+//		@SuppressWarnings("unchecked")
+//		HP hermesProvider = (HP)getApplication();
+		try {
+			connector = (Connector<HS, C>) HermesProvider.getInstance().getConnector();
+		} catch (HermesProvidingException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

@@ -88,6 +88,11 @@ Ln.d("onCreate");
 Ln.d("post onCreate");
 	}
 	
+//	@Override
+//	public void doOnBind() {
+//		Log.d(getClass().getSimpleName()+":36","onBind");
+//	}
+	
 	
 		
 	/*

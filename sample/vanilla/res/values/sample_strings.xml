@@ -24,8 +24,8 @@
     
     <string name="here_button_text">Here?</string>
         
-    <string name="sample_activity_button_text">Sample Inheriting Activity</string>
+    <string name="sample_activity_inheriting_button">Sample Inheriting Activity</string>
     <string name="sample_activity_compositing_button_text">Sample Compositing Activity</string>
-    <string name="sample_activity_local_button_text">Use Controller Here</string>
+    <string name="sample_activity_local_button">Use Controller Here</string>
 
 </resources>

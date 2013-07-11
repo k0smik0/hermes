@@ -19,7 +19,6 @@
  ******************************************************************************/
 package net.iubris.hermes.service;
 
-import java.util.ArrayList;
 import net.iubris.hermes.service.binder.HermesServiceBinder;
 import android.app.Service;
 import android.content.Intent;
@@ -29,11 +28,12 @@ abstract public class AbstractHermesService<HS extends Service & HermesService<C
 extends Service implements HermesService<C> {
 
 	protected IBinder binder;
-	private ArrayList<Runnable> tasksToStart;
-	private ArrayList<Runnable> tasksToStop;
+//	private ArrayList<Runnable> tasksToStart;
+//	private ArrayList<Runnable> tasksToStop;
 	
 	@Override
 	public final IBinder onBind(Intent intent) {
+//		Log.d(getClass().getSimpleName()+":36","onBind");
 		doOnBind();
 		return binder;
 	}
@@ -48,19 +48,19 @@ extends Service implements HermesService<C> {
 	public void onCreate() {
 		super.onCreate();
 		binder = new HermesServiceBinder<AbstractHermesService<HS,C>,C>(this);
-		tasksToStart = new ArrayList<Runnable>(0);
-		tasksToStop = new ArrayList<Runnable>(0);
+//		tasksToStart = new ArrayList<Runnable>(0);
+//		tasksToStop = new ArrayList<Runnable>(0);
 	}
 	
-	@Override
+	/*@Override
 	public final int onStartCommand(Intent intent, int flags, int startId) {
-		SmoothTasks.execute(tasksToStart);
+//		SmoothTasks.execute(tasksToStart);
 		return START_STICKY;
-	}
+	}*/
 	
 	@Override
 	public final void onDestroy() {
-		SmoothTasks.execute(tasksToStop);
+//		SmoothTasks.execute(tasksToStop);
 		binder = null;
 	}
 	

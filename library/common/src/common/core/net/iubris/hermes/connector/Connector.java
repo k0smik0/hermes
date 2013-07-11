@@ -42,10 +42,10 @@ public class Connector<HS extends Service & HermesService<C>, C> {
 
 	private final Context context;
 	private final Class<HS> serviceClass;
-	private HermesServiceConnection serviceConnection = new HermesServiceConnection();
+	private final HermesServiceConnection serviceConnection = new HermesServiceConnection();
 	
 	private CountDownLatch countDownLatch = null;
-	private static final long CONNECTION_TIMEOUT = 4; // 4 second -> use seconds as timeunit!
+	private static final int CONNECTION_TIMEOUT = 4; // 4 second -> use seconds as timeunit!
 	private HS controllerExposerService = null;
 	private boolean binding = false;
 	
@@ -150,6 +150,5 @@ Ln.d(service);
 //Log.d("HermesServiceConnection:145","disconnected");
 		}		
 	}
-
 
 }

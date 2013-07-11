@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Copyleft 2013 Massimiliano Leone - massimiliano.leone@iubris.net .
  * 
- * AbstractHermesApplication.java is part of 'Hermes'.
+ * HermesEventHandlerInternalDelegate.java is part of 'Hermes'.
  * 
  * 'Hermes' is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,35 +17,34 @@
  * along with 'Hermes' ; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  ******************************************************************************/
-package net.iubris.hermes.application;
+package net.iubris.hermes.connector;
 
-import net.iubris.hermes.application.delegate.HermesCoreProviderApplicationDelegate;
-import net.iubris.hermes.connector.Connector;
-import net.iubris.hermes.event.HermesMainEventHandler;
-import net.iubris.hermes.providers.HermesProvider;
+import javax.inject.Inject;
+
 import net.iubris.hermes.service.HermesService;
-import android.app.Application;
 import android.app.Service;
 
-public abstract class AbstractHermesApplication<HS extends Service & HermesService<C>,C> 
-extends Application 
-implements HermesProvider<HS, C> {
+public class HermesEventHandler<HS extends Service & HermesService<C>, C> {
+	
+	protected final Connector<HS,C> connector;
+	
+	@Inject
+	public HermesEventHandler(Connector<HS, C> connector) {
+		this.connector = connector;
+	}
 
-	private HermesCoreProviderApplicationDelegate<HS,C> hermesCoreProviderDelegate;
-	
-	@Override
-	public void onCreate() {		
-		super.onCreate();		
-		hermesCoreProviderDelegate = new HermesCoreProviderApplicationDelegate<HS,C>(this, providesHSClass() );				
-	}
-	@Override
-	public Connector<HS,C> getConnector() {		
-		return hermesCoreProviderDelegate.getConnector();
-	}
-	@Override
-	public HermesMainEventHandler<HS, C> getMainEventHandler() {
-		return hermesCoreProviderDelegate.getMainEventHandler();
+	public void dispatchOnStart(){
+		if (!connector.isServiceBound() ) {
+//Log.d("HermesEventHandlerInternalDelegate:20","dispatchOnStart: "+connector.getContext()+" binding");
+			connector.doBindService();
+		}
 	}
 	
-	protected abstract Class<HS> providesHSClass();
+	public void dispatchOnBackPressed() {
+//Log.d("HermesEventHandlerInternalDelegate:26","dispatchOnBackPressed: "+connector.getContext()+" unbinding");
+		try {
+			connector.doUnbindService();
+		} catch (IllegalArgumentException e) {}
+	}
+	
 }

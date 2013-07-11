@@ -29,26 +29,23 @@ import net.iubris.hermes_sample__roboguiced.activity.examples.HermesSampleCompos
 import net.iubris.hermes_sample__roboguiced.activity.examples.HermesSampleInheritingRoboActivity;
 import net.iubris.hermes_sample__roboguiced.controller.SampleController;
 import net.iubris.hermes_sample__roboguiced.service.HermesSampleRoboService;
-import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-@ContentView(R.layout.sample_main_activity)
+//@ContentView(R.layout.sample_main_activity)
 public class HermesSampleMainRoboActivity
 extends HermesMainRoboActivity<SampleController,HermesSampleRoboService>
 //implements HermesClient<SampleController> 
 {
 
-	@InjectView(R.id.sample_activity_inheriting_button) private Button hermesSampleActivityButtonInh;
-	@InjectView(R.id.sample_activity_compositing_button) private Button hermesSampleActivityButtonComp;
-	@InjectView(R.id.sample_activity_local_button) private Button hermesSampleActivityButtonLocal;
+//	@InjectView(R.id.sample_activity_inheriting_button) private Button hermesSampleActivityButtonInh;
+//	@InjectView(R.id.sample_activity_compositing_button) private Button hermesSampleActivityButtonComp;
+//	@InjectView(R.id.sample_activity_local_button) private Button hermesSampleActivityButtonLocal;
 	@InjectView(R.id.text_view) TextView textView;
 	
 	@Inject Connector<HermesSampleRoboService, SampleController> connector;
@@ -57,13 +54,9 @@ extends HermesMainRoboActivity<SampleController,HermesSampleRoboService>
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		setContentView(R.layout.sample_main_activity);
+//Debug.startMethodTracing(Environment.getExternalStorageDirectory().getPath()+"/traces/hermes_sample_roboguiced__startup");
+		setContentView(R.layout.sample_main_activity);
 	
-		hermesSampleActivityButtonInh.setOnClickListener(hermesSampleActivityButtonListenerInh);
-		hermesSampleActivityButtonComp.setOnClickListener(hermesSampleActivityButtonListenerComp);
-		
-		hermesSampleActivityButtonLocal.setOnClickListener(hermesSampleActivityButtonListenerLocal);
-		
 		textView.setMovementMethod(new ScrollingMovementMethod());
 		
 		hermesConnectingRoboAsyncTask = new HermesConnectingRoboAsyncTask<HermesSampleRoboService, SampleController>(this.getApplicationContext()) {
@@ -76,39 +69,38 @@ extends HermesMainRoboActivity<SampleController,HermesSampleRoboService>
 				showException(e, this.getClass().getSimpleName());
 			}
 		};
-		hermesConnectingRoboAsyncTask.execute();
 	}	
 	
-	private OnClickListener hermesSampleActivityButtonListenerInh = new OnClickListener() {	
-		@Override
-		public void onClick(View arg0) {
-			startActivity( new Intent(HermesSampleMainRoboActivity.this,HermesSampleInheritingRoboActivity.class) );
-		}
-	};
-	private OnClickListener hermesSampleActivityButtonListenerComp = new OnClickListener() {	
-		@Override
-		public void onClick(View arg0) {
-			startActivity( new Intent(HermesSampleMainRoboActivity.this,HermesSampleCompositingRoboActivity.class) );
-		}
-	};
-	private OnClickListener hermesSampleActivityButtonListenerLocal = new OnClickListener() {	
-		@Override
-		public void onClick(View arg0) {
-			hermesConnectingRoboAsyncTask.execute();
-			/*try {
-				String doSomething = connector.getController().doSomething();
-				printResult(doSomething);				
-			} catch (ControllerUnavailableException e) {
-				onException(e, "local button");
-			}*/
-		}
-	};
+	@Override
+	protected void onResume() {
+		super.onResume();
+//		hermesConnectingRoboAsyncTask.execute();
+//Debug.stopMethodTracing();
+	}
+	
+	public void onClickInheriting(View arg0) {
+		startActivity( new Intent(HermesSampleMainRoboActivity.this,HermesSampleInheritingRoboActivity.class) );
+	}
+	public void onClickCompositing(View arg0) {
+		startActivity( new Intent(HermesSampleMainRoboActivity.this,HermesSampleCompositingRoboActivity.class) );
+	}
+	public void onClickLocal(View arg0) {
+		hermesConnectingRoboAsyncTask.execute();
+		/*try {
+			String doSomething = connector.getController().doSomething();
+			printResult(doSomething);				
+		} catch (ControllerUnavailableException e) {
+			onException(e, "local button");
+		}*/
+	}
 	
 	private void printResult(String s) {
 		textView.setText(textView.getText()
 				+s
 				+"\n\n");
 	}
+	
+	
 	
 	
 //	@Override

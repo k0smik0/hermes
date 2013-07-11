@@ -25,6 +25,7 @@ import javax.inject.Singleton;
 
 import android.location.Location;
 import android.location.LocationManager;
+import android.util.Log;
 
 @Singleton
 public class ConcreteSampleController implements SampleController {
@@ -40,9 +41,23 @@ public class ConcreteSampleController implements SampleController {
 	
 	@Override
 	public String doSomething() {
-		Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-		
-		String s = whoIAm()+ ((lastKnownLocation!=null)? lastKnownLocation: "sorry, no gps location found");
+		Location useLocation = null;
+		Location lastGPSKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		if (lastGPSKnownLocation!=null) {
+			Log.d("ConcreteController:47","using gps location");
+			useLocation = lastGPSKnownLocation;
+		} else {
+			Location lastNetworkKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+			if (lastNetworkKnownLocation!=null) {
+				Log.d("ConcreteController:52","using network location");
+				useLocation = lastNetworkKnownLocation;
+			} else {
+				Location lastPassiveKnownLocation = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+				Log.d("ConcreteController:56","using passive location");
+				useLocation = lastPassiveKnownLocation;
+			}
+		}
+		String s = whoIAm()+ ((useLocation!=null)? useLocation: "sorry, no location found");
 				
 		/*Toast.makeText(
 				context,

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Copyleft 2013 Massimiliano Leone - massimiliano.leone@iubris.net .
  * 
- * HermesSampleApplication.java is part of 'Hermes'.
+ * HereListener.java is part of 'Hermes'.
  * 
  * 'Hermes' is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,15 +17,30 @@
  * along with 'Hermes'; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  ******************************************************************************/
-package net.iubris.hermes_vanilla_sample.application;
+package net.iubris.hermes_sample__vanilla.activity.examples;
 
-import net.iubris.hermes.application.AbstractHermesApplication;
-import net.iubris.hermes_vanilla_sample.controller.SampleController;
-import net.iubris.hermes_vanilla_sample.service.HermesSampleService;
+import net.iubris.hermes.client.HermesClient;
+import net.iubris.hermes.connector.exception.ControllerUnavailableException;
+import net.iubris.hermes_sample__vanilla.controller.SampleController;
+import android.view.View;
+import android.view.View.OnClickListener;
 
-public class HermesSampleApplication extends AbstractHermesApplication<HermesSampleService, SampleController> {
+final class HereListener implements OnClickListener {
+	
+	private final HermesClient<SampleController> hermesClient;
+	
+	HereListener(HermesClient<SampleController> hermesClient) {
+		this.hermesClient = hermesClient;
+	}
+
 	@Override
-	public Class<HermesSampleService> providesHSClass() {
-		return HermesSampleService.class;
+	public void onClick(View arg0) {
+		SampleController anExposer;
+		try {
+			anExposer = hermesClient.getController();
+			anExposer.doSomething();
+		} catch (ControllerUnavailableException e) {
+			e.printStackTrace();
+		}		
 	}
 }

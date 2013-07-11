@@ -31,7 +31,7 @@ public class HermesServiceBinder<HS extends Service & HermesService<C>, C> exten
 		this.service = service;
 	}
 	
-	public HS getService() {   
-    	return service;
-    }	
+	public HS getService() {
+		return service;
+	}	
 }

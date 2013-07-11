@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="net/iubris/hermes/HermesInstancer.java|net/iubris/hermes/connector/Connector.java|net/iubris/hermes/connector/Connector_bak.java|net/iubris/hermes/connector/asynctask/HermesConnectorTask.java|net/iubris/hermes/connector/ConnectorProvider.java|net/iubris/hermes/providers/HermesProvider_old.java|net/iubris/hermes/providers/HermesServiceClassProvider.java" kind="src" path="src/vanilla/base"/>
+	<classpathentry excluding="net/iubris/hermes/HermesInstancer.java|net/iubris/hermes/connector/Connector.java|net/iubris/hermes/connector/Connector_bak.java|net/iubris/hermes/connector/asynctask/HermesConnectorTask.java|net/iubris/hermes/connector/ConnectorProvider.java|net/iubris/hermes/providers/HermesProvider_old.java|net/iubris/hermes/providers/HermesServiceClassProvider.java|net/iubris/hermes/providers/HermesProvider.java|net/iubris/hermes/application/delegate/HermesCoreProviderApplicationDelegate.java|net/iubris/hermes/application/AbstractHermesApplication.java" kind="src" path="src/vanilla/base"/>
 	<classpathentry excluding="net/iubris/hermes/activity/splash/delegate/AbstractHermesSplashActivityDelegate.java" kind="src" path="src/vanilla/inheriting_ui"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry excluding="net/iubris/hermes/connector/|net/iubris/hermes/connector/asynctask/|net/iubris/hermes/providers/|net/iubris/hermes/asynctask/HermesAsyncTask.java|net/iubris/hermes/asynctask/listactivity/HermesListActivityAsyncTask.java|net/iubris/hermes/activity/listactivity/HermesListAsyncTask.java" kind="src" path="src/useless"/>
+	<classpathentry excluding="net/iubris/hermes/application/|net/iubris/hermes/application/delegate/|net/iubris/hermes/providers/" kind="src" path="src/useless_2"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="output" path="bin/classes"/>

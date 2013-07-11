@@ -22,26 +22,37 @@ package net.iubris.hermes.activity.main;
 import net.iubris.hermes.activity.HermesActivity;
 import net.iubris.hermes.client.main.HermesMain;
 import net.iubris.hermes.event.HermesMainEventHandler;
-import net.iubris.hermes.providers.HermesProvider;
+import net.iubris.hermes.provider.HermesProvider;
+import net.iubris.hermes.provider.exception.HermesProvidingException;
 import net.iubris.hermes.service.HermesService;
-import android.app.Application;
 import android.app.Service;
 import android.os.Bundle;
 
-abstract public class HermesMainActivity<C,HS  extends Service & HermesService<C>, HP extends Application & HermesProvider<HS, C>>
-extends HermesActivity<C,HS,HP> implements HermesMain {
+abstract public class HermesMainActivity<C,HS  extends Service & HermesService<C>/*, HP extends Application & HermesProvider<HS, C>*/>
+extends HermesActivity<C,HS/*,HP*/> implements HermesMain {
 
 	private HermesMainEventHandler<HS,C> mainEventHandler;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {		
 		super.onCreate(savedInstanceState);	
 		
-		@SuppressWarnings("unchecked")
-		HP hermesProvider = (HP)getApplication();
-		connector = hermesProvider.getConnector();
-		mainEventHandler = hermesProvider.getMainEventHandler();
-		mainEventHandler.dispatchOnCreate();
+//		@SuppressWarnings("unchecked")
+//		HP hermesProvider = (HP)getApplication();
+//		connector = hermesProvider.getConnector();
+		try {
+			mainEventHandler = (HermesMainEventHandler<HS, C>) HermesProvider.getInstance().getMainEventHandler();
+			mainEventHandler.dispatchOnCreate();
+		} catch (HermesProvidingException e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
+		mainEventHandler.dispatchOnStart();
 	}
 			
 	@Override

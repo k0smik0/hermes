@@ -26,7 +26,8 @@
 		android:text="@string/here_button_text"
 		android:id="@+id/here_button"
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content" />
+		android:layout_height="wrap_content"
+		android:onClick="onClickHere" />
 	
 	<TextView
 		android:id="@+id/text_view"
