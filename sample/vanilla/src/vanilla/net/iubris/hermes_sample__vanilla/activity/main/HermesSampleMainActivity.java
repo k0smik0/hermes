@@ -28,7 +28,6 @@ import net.iubris.hermes_sample__vanilla.controller.SampleController;
 import net.iubris.hermes_sample__vanilla.service.HermesSampleService;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Debug;
 import android.view.View;
 import android.widget.TextView;
 
@@ -61,7 +60,7 @@ extends HermesMainActivity<SampleController,HermesSampleService/*, HermesSampleA
 	@Override
 	protected void onResume() {
 		super.onResume();
-Debug.stopMethodTracing();
+//Debug.stopMethodTracing();
 //		hermesConnectingAsyncTask.execute();
 	};
 	
