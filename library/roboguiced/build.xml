@@ -1,5 +1,5 @@
 <project name="hermes-library_roboguice" default="jars">
-	<property name="name" value="${ant.project.name}"/>
+  <property name="name" value="${ant.project.name}"/>
   <property name="user" value="k0smik0"/>
   <property name="vendor" value="Massimiliano Leone - k0smik0"/>
   <property name="version" value="0.1"/>
@@ -9,9 +9,16 @@
   <property name="docurl" value="https://github.com/k0smik0/hermes"/>
 
 
-  <!-- change here with your own -->
-  <property name="android-path" value="/data/fucina/develop/usr/apps/android-sdk/" />
-  <property name="android-sdk-target-version" value="17"/>
+  <property environment="env" />
+	<condition property="sdk.dir" value="${env.ANDROID_HOME}">
+	  <isset property="env.ANDROID_HOME" />
+	</condition>
+	<property name="android-path" value="${sdk.dir}" />
+	
+	<!-- change here with actual -->
+	<property name="android-sdk-target-version" value="22"/>
+	
+	
 
   <property name="libs-dir" value="libs"/>
   <!-- don't include extra libs jars in your project if you don't want use dependency injection-->
@@ -19,98 +26,110 @@
 	
 	<!-- don't touch below -->
 	
-	<property name="src.dir" value="src" />
+  <property name="src.dir" value="src" />
   <property name="build.dir" value="build" />
-	
-	<property name="project.name" value="hermes"/>
-	<property name="project.suffix" value="base"/>
-	<property name="project.branch" value="roboguiced"/>
+  
+  <property name="project.name" value="hermes"/>
+  <property name="project.suffix" value="base"/>
+  <property name="project.branch" value="roboguiced"/>
 
 
   <property name="jar-base-roboguiced.file" value="${build.dir}/jars/${project.name}-${project.suffix}-${project.branch}.jar"/>
-	<property name="jar-base-roboguiced-inheriting.file" value="${build.dir}/jars/${project.name}-${project.suffix}-ui-${project.branch}.jar"/>
+  <property name="jar-base-roboguiced-inheriting.file" value="${build.dir}/jars/${project.name}-${project.suffix}-ui-${project.branch}.jar"/>
 	
-	<path id="classpath-android">
-	  <fileset dir="${android-path}/platforms/android-${android-sdk-target-version}/">
-    	<include name="android*.jar"/>
-	  </fileset>
-	</path>
+  <path id="classpath-android">
+    <fileset dir="${android-path}/platforms/android-${android-sdk-target-version}/">
+      <include name="android*.jar"/>
+    </fileset>
+  </path>
 
-	<path id="classpath-roboguiced-base">
-	  <path refid="classpath-android"/>
-	  <fileset dir="${libs-dir}">
+  <path id="classpath-roboguiced-base">
+  <path refid="classpath-android"/>
+    <fileset dir="${libs-dir}">
       <include name="*.jar"/>
-	  </fileset>
-	</path>
+    </fileset>
+  </path>
 
-	<target name="clean-roboguiced-base">
+  <target name="clean-roboguiced-base">
     <delete dir="${build.dir}/classes/roboguiced/base"/>
-		<delete dir="${build.dir}/classes/roboguiced/ui"/>
-	</target>
+    <delete dir="${build.dir}/classes/roboguiced/ui"/>
+  </target>
 	
-	<target name="clean-roboguiced-ui">
-		<delete dir="${build.dir}/classes/roboguiced/ui"/>
-	</target>
+  <target name="clean-roboguiced-ui">
+    <delete dir="${build.dir}/classes/roboguiced/ui"/>
+  </target>
 	
-	<target name="clean" depends="clean-roboguiced-base,clean-roboguiced-ui"/>
+  <target name="clean" depends="clean-roboguiced-base,clean-roboguiced-ui"/>
 
-	<target name="clean-jars">
+  <target name="clean-jars">
     <delete file="${jar-base-roboguiced.file}"/>
-		<delete file="${jar-base-roboguiced-inheriting.file}.file}"/>
-	</target>
+    <delete file="${jar-base-roboguiced-inheriting.file}.file}"/>
+  </target>
+  
+  <target name="get-real-dependencies">
+		<copy file="${android-path}//extras/android/support/v4/android-support-v4.jar" todir="${libs-dir}"/>    
+    <get dest="${libs-dir}">
+      <url url="https://github.com/k0smik0/hermes/blob/master/library/common/build/jars/hermes-common.jar?raw=true"/>
+    </get>
+    <get dest="${libs-dir}">
+      <url url="http://dependency-shot.googlecode.com/files/javax.inject.jar"/>
+      <url url="http://central.maven.org/maven2/org/sonatype/sisu/sisu-guice/3.2.0/sisu-guice-3.2.0.jar"/>
+      <url url="http://repo1.maven.org/maven2/org/roboguice/roboguice/2.0/roboguice-2.0.jar"/>
+    </get>
+  </target>
 
-	<target name="compile-roboguiced-base">
+  <target name="compile-roboguiced-base">
     <mkdir dir="${build.dir}/classes/roboguiced/base"/>
     <javac destdir="${build.dir}/classes/roboguiced/base" includeantruntime="false">
       <src path="${src.dir}/roboguiced/base" />
       <include name="**/*.java"/>
-    	<exclude name="**/HermesRoboServiceListener.java"/>
+      <exclude name="**/HermesRoboServiceListener.java"/>
       <classpath refid="classpath-roboguiced-base"/>
-		</javac>
-	</target>
+    </javac>
+  </target>
 	
-	<target name="compile-roboguiced-ui" depends="jar-roboguiced-base">
-		<mkdir dir="${build.dir}/classes/roboguiced/ui/base"/>
+  <target name="compile-roboguiced-ui" depends="jar-roboguiced-base">
+    <mkdir dir="${build.dir}/classes/roboguiced/ui/base"/>
     <javac destdir="${build.dir}/classes/roboguiced/ui/base" includeantruntime="false">
       <src path="${src.dir}/roboguiced/ui/base" />
       <include name="**/*.java"/>
       <classpath refid="classpath-roboguiced-base"/>
-    	<classpath>
-    		<fileset dir="${build.dir}/jars">
-    			<include name="hermes-base-roboguiced.jar"/>
-    		</fileset>
-    	</classpath>
-		</javac>
-	</target>
+      <classpath>
+	<fileset dir="${build.dir}/jars">
+	  <include name="hermes-base-roboguiced.jar"/>
+	</fileset>
+      </classpath>
+    </javac>
+  </target>
 	
-	<target name="jar-roboguiced-base" depends="clean-jars, clean-roboguiced-base, compile-roboguiced-base">
-	  <mkdir dir="${build.dir}/jars/"/>
-	  <jar destfile="${jar-base-roboguiced.file}" basedir="${build.dir}/classes/roboguiced/base">
-    	<manifest>
-        <attribute name="Built-By" value="${user}" />    
-        <attribute name="Bundle-Name" value="${name}" />
-        <attribute name="Bundle-Copyright" value="${copyright}" />
-        <attribute name="Bundle-Vendor" value="${vendor}" />
-        <attribute name="Bundle-Version" value="${version}" />
-        <attribute name="Bundle-License" value="${license.url} " />
-        <attribute name="Build-DocURL" value="${docurl}" />           
+  <target name="jar-roboguiced-base" depends="clean-jars, clean-roboguiced-base, compile-roboguiced-base">
+    <mkdir dir="${build.dir}/jars/"/>
+    <jar destfile="${jar-base-roboguiced.file}" basedir="${build.dir}/classes/roboguiced/base">
+      <manifest>
+	<attribute name="Built-By" value="${user}" />    
+	<attribute name="Bundle-Name" value="${name}" />
+	<attribute name="Bundle-Copyright" value="${copyright}" />
+	<attribute name="Bundle-Vendor" value="${vendor}" />
+	<attribute name="Bundle-Version" value="${version}" />
+	<attribute name="Bundle-License" value="${license.url} " />
+	<attribute name="Build-DocURL" value="${docurl}" />
       </manifest>
       <metainf dir="." includes="${license.file}"/>
     </jar>
     <antcall target="clean-roboguiced-base"/>
   </target>
 	
-	<target name="jar-roboguiced-ui" depends="clean-jars, clean-roboguiced-base, compile-roboguiced-ui">
-	  <mkdir dir="${build.dir}/jars/"/>
-	  <jar destfile="${jar-base-roboguiced-inheriting.file}" basedir="${build.dir}/classes/roboguiced/ui/base">
-    	<manifest>
-        <attribute name="Built-By" value="${user}" />    
-        <attribute name="Bundle-Name" value="${name}" />
-        <attribute name="Bundle-Copyright" value="${copyright}" />
-        <attribute name="Bundle-Vendor" value="${vendor}" />
-        <attribute name="Bundle-Version" value="${version}" />
-        <attribute name="Bundle-License" value="${license.url} " />
-        <attribute name="Build-DocURL" value="${docurl}" />           
+  <target name="jar-roboguiced-ui" depends="clean-jars, clean-roboguiced-base, compile-roboguiced-ui">
+    <mkdir dir="${build.dir}/jars/"/>
+    <jar destfile="${jar-base-roboguiced-inheriting.file}" basedir="${build.dir}/classes/roboguiced/ui/base">
+      <manifest>
+	<attribute name="Built-By" value="${user}" />    
+	<attribute name="Bundle-Name" value="${name}" />
+	<attribute name="Bundle-Copyright" value="${copyright}" />
+	<attribute name="Bundle-Vendor" value="${vendor}" />
+	<attribute name="Bundle-Version" value="${version}" />
+	<attribute name="Bundle-License" value="${license.url} " />
+	<attribute name="Build-DocURL" value="${docurl}" />           
       </manifest>
       <metainf dir="." includes="${license.file}"/>
     </jar>

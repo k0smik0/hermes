@@ -34,7 +34,7 @@ public class HermesMainEventHandler<HS extends Service & HermesService<C>, C> {
 	@Inject
 	public HermesMainEventHandler(HermesEventHandler<HS, C> eventHandler, ServiceHandler<HS,C> serviceHandler) {
 		this.eventHandler = eventHandler;		
-		this.serviceHandler = serviceHandler;		
+		this.serviceHandler = serviceHandler;
 	}
 	
 	public void dispatchOnCreate() {

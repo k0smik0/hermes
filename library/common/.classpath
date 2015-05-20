@@ -3,11 +3,10 @@
 	<classpathentry excluding="net/iubris/hermes/service/StartOnStart.java" kind="src" path="src/common/core"/>
 	<classpathentry kind="src" path="src/common/ui/splash"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry excluding="net/iubris/hermes/asynctask/|net/iubris/hermes/client/delegate/|net/iubris/hermes/connector/|net/iubris/hermes/connector/asynctask/|net/iubris/hermes/service/|net/iubris/hermes/|splash/" kind="src" path="src/useless"/>
-	<classpathentry excluding="net/iubris/hermes/activity/splash/|net/iubris/hermes/activity/splash/delegate/|net/iubris/hermes/activity/splash/delegate/base/|net/iubris/hermes/activity/splash/thread/" kind="src" path="src/useless/splash"/>
 	<classpathentry excluding="net/iubris/hermes/service/HermesServiceWithSmoothTask.java" kind="src" path="src/experimental"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry kind="lib" path="/data/fucina/develop/home/k0smik0/workspace/libs/needed/roboguice/javax.inject.jar"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry kind="lib" path="libs_extra/javax.inject.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

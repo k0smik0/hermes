@@ -3,12 +3,9 @@
 	<classpathentry kind="src" path="src/roboguiced/base"/>
 	<classpathentry kind="src" path="src/roboguiced/ui/base"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry excluding="net/iubris/hermes/_roboguice/|net/iubris/hermes/client/delegate/|net/iubris/hermes/connector/|net/iubris/hermes/connector/asynctask/|net/iubris/hermes/event/|net/iubris/hermes/service/handler/" kind="src" path="src/useless/misc"/>
-	<classpathentry excluding="net/iubris/hermes/activity/expandablelist/|net/iubris/hermes/activity/list/|net/iubris/hermes/activity/main/|net/iubris/hermes/activity/map/|net/iubris/hermes/fragment/|net/iubris/hermes/fragment/list/|net/iubris/hermes/connector/asynctask/HermesConnectingRoboAsyncTask.java" kind="src" path="src/useless/ui/inheriting_extra"/>
-	<classpathentry excluding="net/iubris/hermes/utils/asynctask/|net/iubris/hermes/utils/asynctask/start/|net/iubris/hermes/utils/loader/" kind="src" path="src/useless/utils"/>
-	<classpathentry excluding="net/iubris/hermes/service/" kind="src" path="src/useless/base"/>
 	<classpathentry excluding="net/iubris/hermes/service/AbstractHermesRoboServiceWithSmoothTask.java" kind="src" path="src/experimental"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
