@@ -19,13 +19,13 @@
  ******************************************************************************/
 package net.iubris.hermes_sample__vanilla.service;
 
-import net.iubris.hermes.service.AbstractHermesService;
+import net.iubris.hermes.service.AbstractContainerService;
 import net.iubris.hermes_sample__vanilla.controller.ConcreteSampleController;
 import net.iubris.hermes_sample__vanilla.controller.SampleController;
 import android.location.LocationManager;
 import android.util.Log;
 
-public class HermesSampleService extends AbstractHermesService<HermesSampleService,SampleController> {
+public class HermesSampleService extends AbstractContainerService<HermesSampleService,SampleController> {
 	
 	LocationManager locationManager;
 	private ConcreteSampleController concreteSampleController;

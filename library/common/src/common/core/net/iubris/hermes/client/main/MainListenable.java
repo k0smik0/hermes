@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Copyleft 2013 Massimiliano Leone - massimiliano.leone@iubris.net .
  * 
- * HermesService.java is part of 'Hermes'.
+ * HermesMain.java is part of 'Hermes'.
  * 
  * 'Hermes' is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,11 +17,8 @@
  * along with 'Hermes' ; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  ******************************************************************************/
-package net.iubris.hermes.service;
+package net.iubris.hermes.client.main;
 
-import net.iubris.hermes.service.exposer.ControllerExposer;
-
-public interface HermesService<C> extends ControllerExposer<C> {
-	void doOnBind();
-	void doOnUnBind();
+public interface MainListenable {
+	public void doOnBackPressed();
 }

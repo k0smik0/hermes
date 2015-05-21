@@ -19,8 +19,8 @@
  ******************************************************************************/
 package net.iubris.hermes.event.listener;
 
-import net.iubris.hermes.event.HermesMainEventHandler;
-import net.iubris.hermes.service.HermesService;
+import net.iubris.hermes.event.MainEventHandler;
+import net.iubris.hermes.service.ContainerService;
 import roboguice.activity.event.OnCreateEvent;
 import roboguice.activity.event.OnDestroyEvent;
 import roboguice.activity.event.OnStartEvent;
@@ -30,14 +30,14 @@ import android.app.Service;
 import com.google.inject.Inject;
 
 //@ContextSingleton
-public class HermesMainRoboActivityListener<HS extends Service & HermesService<C>, C> 
+public class HermesMainRoboActivityListener<HS extends Service & ContainerService<C>, C> 
 //extends HermesRoboActivityListener<HS, C> 
 {
 	
-	private final HermesMainEventHandler<HS,C> mainEventHandler;
+	private final MainEventHandler<HS,C> mainEventHandler;
 		
 	@Inject
-	public HermesMainRoboActivityListener(HermesMainEventHandler<HS,C> mainEventHandler) {
+	public HermesMainRoboActivityListener(MainEventHandler<HS,C> mainEventHandler) {
 		this.mainEventHandler = mainEventHandler;
 	}
 

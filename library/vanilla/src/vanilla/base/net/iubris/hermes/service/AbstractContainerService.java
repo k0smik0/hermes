@@ -19,13 +19,13 @@
  ******************************************************************************/
 package net.iubris.hermes.service;
 
-import net.iubris.hermes.service.binder.HermesServiceBinder;
+import net.iubris.hermes.service.binder.ContainerServiceBinder;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-abstract public class AbstractHermesService<HS extends Service & HermesService<C>, C> 
-extends Service implements HermesService<C> {
+abstract public class AbstractContainerService<HS extends Service & ContainerService<C>, C> 
+extends Service implements ContainerService<C> {
 
 	protected IBinder binder;
 //	private ArrayList<Runnable> tasksToStart;
@@ -47,7 +47,7 @@ extends Service implements HermesService<C> {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		binder = new HermesServiceBinder<AbstractHermesService<HS,C>,C>(this);
+		binder = new ContainerServiceBinder<AbstractContainerService<HS,C>,C>(this);
 //		tasksToStart = new ArrayList<Runnable>(0);
 //		tasksToStop = new ArrayList<Runnable>(0);
 	}

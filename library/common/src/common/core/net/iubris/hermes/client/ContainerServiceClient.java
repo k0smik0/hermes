@@ -19,12 +19,12 @@
  ******************************************************************************/
 package net.iubris.hermes.client;
 
-import net.iubris.hermes.connector.exception.ControllerUnavailableException;
+import net.iubris.hermes.connector.exception.ActorUnavailableException;
 
 
 
 //public interface HermesClient<C,HS extends IHermesService<C>> {
-public interface HermesClient<C> {
-	public C getController() throws ControllerUnavailableException;
+public interface ContainerServiceClient<C> {
+	public C getActor() throws ActorUnavailableException;
 //	public void onException(ControllerUnavailableException e);
 }

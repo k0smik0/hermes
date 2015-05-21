@@ -19,7 +19,7 @@
  ******************************************************************************/
 package net.iubris.hermes.activity.splash.base;
 
-import net.iubris.hermes.service.HermesService;
+import net.iubris.hermes.service.ContainerService;
 import android.app.Activity;
 import android.app.Application;
 import android.app.Service;
@@ -35,7 +35,7 @@ import android.os.Bundle;
  */
 abstract public class HermesSplashActivity
 //<HA extends HermesClient<C, HS>, HS extends IHermesService<C>,C>
-</*A extends Activity,*/ HS extends Service & HermesService<C>,C>
+</*A extends Activity,*/ HS extends Service & ContainerService<C>,C>
 extends Activity {
 	
 	public static String ACTION_POST_SPLASH = "action_post_splash";

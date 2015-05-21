@@ -22,19 +22,19 @@ package net.iubris.hermes.activity;
 
 import javax.inject.Inject;
 
-import net.iubris.hermes.client.HermesClient;
+import net.iubris.hermes.client.ContainerServiceClient;
 import net.iubris.hermes.connector.Connector;
-import net.iubris.hermes.connector.exception.ControllerUnavailableException;
-import net.iubris.hermes.service.HermesService;
+import net.iubris.hermes.connector.exception.ActorUnavailableException;
+import net.iubris.hermes.service.ContainerService;
 import roboguice.activity.RoboActivity;
 import android.app.Service;
 import android.os.Bundle;
 import android.util.Log;
 
-public class HermesRoboActivity<C, HS extends Service & HermesService<C>>
+public class HermesRoboActivity<C, HS extends Service & ContainerService<C>>
 extends RoboActivity 
 //implements HermesClient<C, HS>/*, IHermesRoboActivity<HS,C> */{
-implements HermesClient<C>/*, IHermesRoboActivity<HS,C> */
+implements ContainerServiceClient<C>/*, IHermesRoboActivity<HS,C> */
 {
 //	@Inject private RoboConnector<HS, C> connector;
 	@Inject private Connector<HS, C> connector;
@@ -55,7 +55,7 @@ Log.d(this.getClass().getSimpleName()+"[HermesRoboActivity:47]", "connector: "+c
 	}*/
 	
 	@Override
-	public C getController() throws ControllerUnavailableException {
+	public C getActor() throws ActorUnavailableException {
 		/*try {
 Ln.d("getController");
 //			return connector.getControllerExposerService().getController();

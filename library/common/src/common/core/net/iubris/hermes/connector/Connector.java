@@ -26,9 +26,9 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import net.iubris.hermes.connector.exception.ControllerUnavailableException;
-import net.iubris.hermes.service.HermesService;
-import net.iubris.hermes.service.binder.HermesServiceBinder;
+import net.iubris.hermes.connector.exception.ActorUnavailableException;
+import net.iubris.hermes.service.ContainerService;
+import net.iubris.hermes.service.binder.ContainerServiceBinder;
 import android.app.Application;
 import android.app.Service;
 import android.content.ComponentName;
@@ -38,7 +38,7 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 
 @Singleton
-public class Connector<HS extends Service & HermesService<C>, C> {
+public class Connector<HS extends Service & ContainerService<C>, C> {
 
 	private final Context context;
 	private final Class<HS> serviceClass;
@@ -88,7 +88,7 @@ public class Connector<HS extends Service & HermesService<C>, C> {
 		return controllerExposerService != null;
 	}
 	
-	public C getController() throws ControllerUnavailableException {
+	public C getController() throws ActorUnavailableException {
 		if (!isServiceBound()) {
 //Log.d("Connector:94","getting service but it is not bounded! binding...");
 			if (!binding)
@@ -99,10 +99,10 @@ public class Connector<HS extends Service & HermesService<C>, C> {
 		try {
 			boolean await = countDownLatch.await(CONNECTION_TIMEOUT,TimeUnit.SECONDS);
 			if (!await)
-				throw new ControllerUnavailableException("too long await - no such controller available");
+				throw new ActorUnavailableException("too long await - no such controller available");
 		} catch (InterruptedException e) {
 //			e.printStackTrace();
-			throw new ControllerUnavailableException(e);
+			throw new ActorUnavailableException(e);
 		}
 //Log.d("Connector:108","countdown = "+countDownLatch.getCount());
 		C controller = controllerExposerService.getController();
@@ -136,7 +136,7 @@ Ln.d(service);
 		@SuppressWarnings("unchecked")
 		@Override
 		public void onServiceConnected(ComponentName name, IBinder service) {
-			Connector.this.controllerExposerService = ((HermesServiceBinder<HS,C>)service).getService(); // cast
+			Connector.this.controllerExposerService = ((ContainerServiceBinder<HS,C>)service).getService(); // cast
 //Log.d("HermesServiceConnection:140",context+" connected to "+service);
 			binding = false;
 			Connector.this.countDownLatch.countDown();		

@@ -21,18 +21,18 @@ package net.iubris.hermes.event;
 
 import javax.inject.Inject;
 
-import net.iubris.hermes.connector.HermesEventHandler;
-import net.iubris.hermes.service.HermesService;
+import net.iubris.hermes.connector.EventHandler;
+import net.iubris.hermes.service.ContainerService;
 import net.iubris.hermes.service.handler.ServiceHandler;
 import android.app.Service;
 
-public class HermesMainEventHandler<HS extends Service & HermesService<C>, C> {	
+public class MainEventHandler<HS extends Service & ContainerService<C>, C> {	
 		
 	private final ServiceHandler<HS,C> serviceHandler;
-	private final HermesEventHandler<HS, C> eventHandler;
+	private final EventHandler<HS, C> eventHandler;
 	
 	@Inject
-	public HermesMainEventHandler(HermesEventHandler<HS, C> eventHandler, ServiceHandler<HS,C> serviceHandler) {
+	public MainEventHandler(EventHandler<HS, C> eventHandler, ServiceHandler<HS,C> serviceHandler) {
 		this.eventHandler = eventHandler;		
 		this.serviceHandler = serviceHandler;
 	}

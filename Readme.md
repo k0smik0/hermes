@@ -2,7 +2,7 @@
 
 ##an MVC for android
   
-the idea is using (local) Service as persistent container for a custom controller, and then provide a component which make activities possible to communicate with service, just with a method call.
+the idea is using (local) Service as persistent container for a custom object (an "actor"), then provide the component allowing communications between activities and service, just with a method call.
 
 Why *Hermes* ?   
 Because the name: Hermes is communication god, in greak mythology.  
@@ -50,9 +50,9 @@ after you cloned repository, you have simply exclude uninteresting folders in yo
       
 ###usage:
 
-####1) your service must extends HermesService (or HermesRoboService, in roboguiced version): template parameters are YourService (itself) and YourController, so:
+####1) your service must extends ContainerService (or RoboContainerService, in roboguiced version): template parameters are YourService (itself) and YourController, so:
 ```java
-public class MyService extends HermesRoboService<MyService,MyController> { // roboguiced version - for vanilla: you can use HermesService
+public class MyService extends RoboCService<MyService,MyController> { // roboguiced version - for vanilla: you can use ContainerService
    @Inject MyController myController; // in vanilla version you have to instance this in OnCreate
    ...
 }
@@ -74,8 +74,8 @@ So, different ways are possible:
 public class MyMainRoboActivity extends RoboActivity { //roboguiced way
 	@Inject private HermesMainRoboActivityListener<MyService,MyController> listener;
     
-    // if u want stop service when user press back button in this main activity
-    @Override
+	// if u want stop service when user press back button in this main activity
+	@Override
 	public void onBackPressed() { 
 		listener.dispatchOnBackPressed(); // stop service
 		super.onBackPressed();

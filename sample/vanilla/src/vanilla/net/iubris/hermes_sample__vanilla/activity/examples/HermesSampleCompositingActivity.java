@@ -21,7 +21,7 @@ package net.iubris.hermes_sample__vanilla.activity.examples;
 
 import net.iubris.hermes.connector.Connector;
 import net.iubris.hermes.connector.asynctask.HermesConnectingAsyncTask;
-import net.iubris.hermes.provider.HermesProvider;
+import net.iubris.hermes.provider.ContainerProvider;
 import net.iubris.hermes.provider.exception.HermesProvidingException;
 import net.iubris.hermes_sample__vanilla.R;
 import net.iubris.hermes_sample__vanilla.controller.SampleController;
@@ -47,7 +47,7 @@ public class HermesSampleCompositingActivity extends Activity {
 		setContentView(R.layout.sample_activities);
 //		connector = ((HermesSampleApplication)getApplication()).getConnector();
 		try {
-			HermesProvider<HermesSampleService, SampleController> hermesProvider = HermesProvider.getInstance();
+			ContainerProvider<HermesSampleService, SampleController> hermesProvider = ContainerProvider.getInstance();
 			connector = hermesProvider.getConnector();
 		} catch (HermesProvidingException e) {
 			e.printStackTrace();

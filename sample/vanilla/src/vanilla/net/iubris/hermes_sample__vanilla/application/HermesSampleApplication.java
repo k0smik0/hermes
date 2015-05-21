@@ -19,7 +19,7 @@
  ******************************************************************************/
 package net.iubris.hermes_sample__vanilla.application;
 
-import net.iubris.hermes.provider.HermesProvider;
+import net.iubris.hermes.provider.ContainerProvider;
 import net.iubris.hermes_sample__vanilla.service.HermesSampleService;
 import android.app.Application;
 
@@ -35,6 +35,6 @@ public class HermesSampleApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 //Debug.startMethodTracing(Environment.getExternalStorageDirectory().getPath()+"/traces/hermes_sample_vanilla__startup");
-		HermesProvider.init(this, HermesSampleService.class);
+		ContainerProvider.init(this, HermesSampleService.class);
 	}
 }

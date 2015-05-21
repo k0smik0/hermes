@@ -21,14 +21,14 @@ package net.iubris.hermes.service.handler;
 
 import javax.inject.Inject;
 
-import net.iubris.hermes.service.HermesService;
+import net.iubris.hermes.service.ContainerService;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 
-public class ServiceHandler<HS extends Service & HermesService<C>, C> {
+public class ServiceHandler<HS extends Service & ContainerService<C>, C> {
 	
 	private final Context context;
 	private final Class<HS> hsServiceClass;

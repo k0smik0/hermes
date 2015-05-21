@@ -19,14 +19,14 @@
  ******************************************************************************/
 package net.iubris.hermes.service;
 
-import net.iubris.hermes.service.binder.HermesServiceBinder;
+import net.iubris.hermes.service.binder.ContainerServiceBinder;
 import roboguice.service.RoboService;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-abstract public class AbstractHermesRoboService<HS extends Service & HermesService<C>, C> 
-extends RoboService implements HermesService<C> {
+abstract public class AbstractRoboContainerService<HS extends Service & ContainerService<C>, C> 
+extends RoboService implements ContainerService<C> {
 
 	// new way - not working ;/
 	/*
@@ -57,7 +57,7 @@ extends RoboService implements HermesService<C> {
 //Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:64]","post super.onCreate");
 
 //Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:69]","binding");
-		binder = new HermesServiceBinder<AbstractHermesRoboService<HS, C>,C>(this);
+		binder = new ContainerServiceBinder<AbstractRoboContainerService<HS, C>,C>(this);
 //Log.d(this.getClass().getSimpleName()+"[AbstractHermesRoboService:71]","post binding");
 	}
 	

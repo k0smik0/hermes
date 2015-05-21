@@ -22,13 +22,13 @@ package net.iubris.hermes.connector.asynctask;
 import javax.inject.Inject;
 
 import net.iubris.hermes.connector.Connector;
-import net.iubris.hermes.connector.exception.ControllerUnavailableException;
-import net.iubris.hermes.service.HermesService;
+import net.iubris.hermes.connector.exception.ActorUnavailableException;
+import net.iubris.hermes.service.ContainerService;
 import roboguice.util.RoboAsyncTask;
 import android.app.Service;
 import android.content.Context;
 
-public abstract class HermesConnectingRoboAsyncTask<HS extends Service & HermesService<C>,C> extends RoboAsyncTask<C> {
+public abstract class HermesConnectingRoboAsyncTask<HS extends Service & ContainerService<C>,C> extends RoboAsyncTask<C> {
 	@Inject private Connector<HS, C> connector;
 //	private final ProgressDialog dialog;
 	
@@ -50,7 +50,7 @@ public abstract class HermesConnectingRoboAsyncTask<HS extends Service & HermesS
 	final public C call() throws Exception {
 		try {
 			return connector.getController();
-		} catch (ControllerUnavailableException e) {
+		} catch (ActorUnavailableException e) {
 			onControllerUnavailableException(e);
 		}
 		return null;
@@ -74,7 +74,7 @@ public abstract class HermesConnectingRoboAsyncTask<HS extends Service & HermesS
 		return "Please wait...";
 	}*/
 	
-	protected void onControllerUnavailableException(ControllerUnavailableException e) {
+	protected void onControllerUnavailableException(ActorUnavailableException e) {
 //		Toast.makeText(context, "some error retrieving controller", Toast.LENGTH_SHORT).show();
 	}
 }

@@ -22,7 +22,7 @@ package net.iubris.hermes_sample__roboguiced.activity.examples;
 
 import net.iubris.hermes.activity.HermesRoboActivity;
 import net.iubris.hermes.connector.asynctask.HermesConnectingRoboAsyncTask;
-import net.iubris.hermes.connector.exception.ControllerUnavailableException;
+import net.iubris.hermes.connector.exception.ActorUnavailableException;
 import net.iubris.hermes_sample__roboguiced.R;
 import net.iubris.hermes_sample__roboguiced.controller.SampleController;
 import net.iubris.hermes_sample__roboguiced.service.HermesSampleRoboService;
@@ -75,7 +75,7 @@ public class HermesSampleInheritingRoboActivity extends HermesRoboActivity<Sampl
 	}
 	
 //	@Override
-	protected void onException(ControllerUnavailableException arg0) {
+	protected void onException(ActorUnavailableException arg0) {
 		 Toast.makeText(this, "something heavy wrong: please repress button", Toast.LENGTH_SHORT).show();
 	};
 }

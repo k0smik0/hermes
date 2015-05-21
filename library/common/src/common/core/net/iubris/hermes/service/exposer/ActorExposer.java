@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Copyleft 2013 Massimiliano Leone - massimiliano.leone@iubris.net .
  * 
- * HermesServiceBinder.java is part of 'Hermes'.
+ * ControllerExposer.java is part of 'Hermes'.
  * 
  * 'Hermes' is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,21 +17,8 @@
  * along with 'Hermes' ; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  ******************************************************************************/
-package net.iubris.hermes.service.binder;
+package net.iubris.hermes.service.exposer;
 
-import net.iubris.hermes.service.HermesService;
-import android.app.Service;
-import android.os.Binder;
-
-public class HermesServiceBinder<HS extends Service & HermesService<C>, C> extends Binder {
-
-	private HS service;
-	
-	public HermesServiceBinder(HS service) {
-		this.service = service;
-	}
-	
-	public HS getService() {
-		return service;
-	}	
+public interface ActorExposer<C> {
+	public C getController();
 }

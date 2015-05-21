@@ -19,14 +19,14 @@
  ******************************************************************************/
 package net.iubris.hermes_sample__roboguiced.service;
 
-import net.iubris.hermes.service.AbstractHermesRoboService;
+import net.iubris.hermes.service.AbstractRoboContainerService;
 import net.iubris.hermes_sample__roboguiced.controller.SampleController;
 import roboguice.util.Ln;
 
 import com.google.inject.Inject;
  
 
-public class HermesSampleRoboService extends AbstractHermesRoboService<HermesSampleRoboService,SampleController> {
+public class HermesSampleRoboService extends AbstractRoboContainerService<HermesSampleRoboService,SampleController> {
 	
 //	@Inject LocationManager locationManager; // sample injection
 	@Inject SampleController controller;

@@ -19,18 +19,18 @@
  ******************************************************************************/
 package net.iubris.hermes.activity;
 
-import net.iubris.hermes.client.HermesClient;
+import net.iubris.hermes.client.ContainerServiceClient;
 import net.iubris.hermes.connector.Connector;
-import net.iubris.hermes.connector.exception.ControllerUnavailableException;
-import net.iubris.hermes.provider.HermesProvider;
+import net.iubris.hermes.connector.exception.ActorUnavailableException;
+import net.iubris.hermes.provider.ContainerProvider;
 import net.iubris.hermes.provider.exception.HermesProvidingException;
-import net.iubris.hermes.service.HermesService;
+import net.iubris.hermes.service.ContainerService;
 import android.app.Activity;
 import android.app.Service;
 import android.os.Bundle;
 
-abstract public class HermesActivity<C,HS extends Service & HermesService<C>/*,HP extends Application & HermesProvider<HS, C>*/> 
-extends Activity implements HermesClient<C> {
+abstract public class HermesActivity<C,HS extends Service & ContainerService<C>/*,HP extends Application & HermesProvider<HS, C>*/> 
+extends Activity implements ContainerServiceClient<C> {
 	
 	protected Connector<HS, C> connector;
 //	protected HermesMainEventHandler<HS,C> mainEventHandler;
@@ -42,14 +42,14 @@ extends Activity implements HermesClient<C> {
 //		@SuppressWarnings("unchecked")
 //		HP hermesProvider = (HP)getApplication();
 		try {
-			connector = (Connector<HS, C>) HermesProvider.getInstance().getConnector();
+			connector = (Connector<HS, C>) ContainerProvider.getInstance().getConnector();
 		} catch (HermesProvidingException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	@Override
-	public C getController()  throws ControllerUnavailableException {
+	public C getActor()  throws ActorUnavailableException {
 		return connector.getController();
 	}
 

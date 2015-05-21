@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Copyleft 2013 Massimiliano Leone - massimiliano.leone@iubris.net .
  * 
- * ControllerExposer.java is part of 'Hermes'.
+ * ControllerUnavailableException.java is part of 'Hermes'.
  * 
  * 'Hermes' is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,8 +17,19 @@
  * along with 'Hermes' ; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  ******************************************************************************/
-package net.iubris.hermes.service.exposer;
+package net.iubris.hermes.connector.exception;
 
-public interface ControllerExposer<C> {
-	public C getController();
+public class ActorUnavailableException extends Exception {
+
+	public ActorUnavailableException(String string) {
+		super(string);
+	}
+	public ActorUnavailableException(String detailMessage, Throwable throwable) {
+		super(detailMessage, throwable);
+	}
+	public ActorUnavailableException(Throwable throwable) {
+		super(throwable);
+	}
+
+	private static final long serialVersionUID = -1435226607862659275L;
 }
